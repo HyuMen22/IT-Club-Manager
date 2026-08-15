@@ -68,6 +68,7 @@
             padding: 60px 40px;
             border-radius: 30px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
         }
         #lobbyScreen h1 { 
             font-weight: 800; 
@@ -116,6 +117,14 @@
         .lobby-card h4 { font-weight: 700; font-size: 1.6rem; margin-bottom: 8px; }
         .lobby-card p { color: #5f6368; font-size: 0.95rem; margin: 0; line-height: 1.5; }
 
+        /* --- TULISAN "By DEAS" DI LOBBY --- */
+        .lobby-footer {
+            margin-top: 35px;
+            font-size: 0.85rem;
+            color: #9aa0a6;
+            letter-spacing: 1px;
+        }
+
         /* --- APLIKASI UTAMA --- */
         #mainApp { display: none; width: 100%; }
 
@@ -151,6 +160,20 @@
         .kas-item .info .name { font-weight: 600; font-size: 0.95rem; color: #202124; }
         .kas-item .info .class-badge { background: #e8f0fe; color: #1A73E8; font-weight: 600; font-size: 0.75rem; padding: 2px 12px; border-radius: 20px; white-space: nowrap; }
         .kas-item.status-bayar { background: #D4EDDA; border-color: #28a745; }
+        
+        /* Tampilan "Belum Bayar" */
+        .kas-item.status-belum-bayar { background: #FFF3CD; border-color: #ffc107; }
+        .badge-belum-bayar {
+            background: #ffc107;
+            color: #856404;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            display: inline-block;
+            margin-left: auto;
+        }
+
         .kas-nominal-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
         .btn-kas-nominal { border-radius: 30px; padding: 4px 14px; font-size: 0.8rem; font-weight: 500; border: 2px solid transparent; transition: all 0.15s ease; background: #f1f3f4; color: #5f6368; cursor: pointer; min-width: 50px; text-align: center; }
         .btn-kas-nominal:hover { transform: scale(1.04); }
@@ -211,6 +234,31 @@
         .connection-status.online { background: #D4EDDA; color: #155724; }
         .connection-status.offline { background: #F8D7DA; color: #721c24; }
         .connection-status.checking { background: #FFF3CD; color: #856404; }
+
+        /* --- STYLE UNTUK TOMBOL LINK SPREADSHEET --- */
+        .btn-spreadsheet-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #e8f0fe;
+            color: #1A73E8;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+            margin-bottom: 15px;
+        }
+        .btn-spreadsheet-link:hover {
+            background: #d2e3fc;
+            transform: scale(1.02);
+            border-color: #1A73E8;
+        }
+        .btn-spreadsheet-link i {
+            font-size: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -252,6 +300,10 @@
                     <p>Mengelola uang kas siswa</p>
                 </div>
             </div>
+            <!-- TULISAN BY DEAS -->
+            <div class="lobby-footer">
+                <i class="fas fa-code me-1"></i> By DEAS
+            </div>
         </div>
     </div>
 
@@ -284,6 +336,12 @@
         <div class="container">
             <!-- 2. TEMPAT UNTUK MENU ABSENSI (AKAN DIISI OLEH JS) -->
             <div id="menuAbsensiWrapper" style="display: none;">
+                <!-- LINK SPREADSHEET ABSENSI -->
+                <div class="text-center mb-3">
+                    <a href="https://docs.google.com/spreadsheets/d/1gkIFPH_wZtFEfxr0oVflvvTANC6881HENk1NduwY3po/edit?usp=sharing" target="_blank" class="btn-spreadsheet-link">
+                        <i class="fas fa-external-link-alt"></i> Lihat Spreadsheet Absensi
+                    </a>
+                </div>
                 <ul class="nav nav-pills justify-content-center gap-2 mb-3" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#contentAbsensi" type="button" role="tab">
@@ -322,6 +380,12 @@
 
             <!-- 3. TEMPAT UNTUK MENU KAS (AKAN DIISI OLEH JS) -->
             <div id="menuKasWrapper" style="display: none;">
+                <!-- LINK SPREADSHEET KAS -->
+                <div class="text-center mb-3">
+                    <a href="https://docs.google.com/spreadsheets/d/1Ym3N9HdsgmPcSApW5giCSzJ6-vebpXx4c8lqMsVQH_I/edit?usp=sharing" target="_blank" class="btn-spreadsheet-link">
+                        <i class="fas fa-external-link-alt"></i> Lihat Spreadsheet Kas
+                    </a>
+                </div>
                 <ul class="nav nav-pills justify-content-center gap-2 mb-3" role="tablist">
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#contentKas" type="button" role="tab">
@@ -469,46 +533,61 @@
         });
 
         // ================================================================
-        //  DATA SISWA
+        //  DATA SISWA BARU (Sudah Diurutkan Berdasarkan Abjad A-Z)
         // ================================================================
         const STUDENTS_DATA = [
-            { nama: "Annisa Khumairah M", kelas: "XI-6" },
+            { nama: "Abdul Aziz Nurrohman", kelas: "X-1" },
+            { nama: "Ahmad Fatir Syatori", kelas: "XI-10" },
+            { nama: "Aleya Ayu Meyditta Putri", kelas: "X-5" },
             { nama: "Anisa Nurwulansari", kelas: "XI-2" },
+            { nama: "Annisa Khumairah M.", kelas: "XI-6" },
+            { nama: "Aqila Zulfadhly", kelas: "XI-7" },
             { nama: "Ayuni Deviana Nurwahid", kelas: "XI-11" },
             { nama: "Daniel Barus", kelas: "XI-12" },
             { nama: "Deas Iskandar Dinata", kelas: "XI-11" },
+            { nama: "Deprilia Nurohmah", kelas: "XI-2" },
+            { nama: "Desri", kelas: "XI-10" },
+            { nama: "Diandra Anindita", kelas: "XI-11" },
+            { nama: "Grisfa Hayna Bilhaqi", kelas: "X-2" },
             { nama: "Imelda Septiani Sihotang", kelas: "XI-11" },
-            { nama: "Izza N.G", kelas: "XI-7" },
-            { nama: "M. Aqila Zulfadhly", kelas: "XI-7" },
-            { nama: "Maulana Rizal", kelas: "XI-3" },
-            { nama: "Muhammad Kathan Abdinaafi", kelas: "XI-2" },
-            { nama: "Naila Nazma S.", kelas: "XI-6" },
-            { nama: "Raditya Rasya Aliy Putra", kelas: "XI-11" },
-            { nama: "Raditya Zia Z", kelas: "XI-3" },
-            { nama: "Rizal Abdillah", kelas: "XI-7" },
-            { nama: "Silvia Tita Apriyani", kelas: "XI-11" },
-            { nama: "Syifa Nurhaqijah", kelas: "XI-3" },
-            { nama: "Ufairah Ghaisani Hafidzah", kelas: "XI-11" },
-            { nama: "Widelya Cahya C", kelas: "" },
-            { nama: "Wildan F.C", kelas: "XI-12" },
-            { nama: "Abdul Aziz N.", kelas: "X-1" },
-            { nama: "Grisfa Hayna Bilkhaq", kelas: "X-2" },
             { nama: "Intan Khairunnisa", kelas: "X-9" },
+            { nama: "Izza Nur Ghatfan", kelas: "XI-7" },
             { nama: "Julia Apriyanti", kelas: "X-12" },
-            { nama: "Keyla Juniavani", kelas: "" },
-            { nama: "Labib Arhaburrizqi H.", kelas: "X-1" },
+            { nama: "Keyla Juniavani", kelas: "X-8" },
+            { nama: "Labib Arhaburrizqi .H", kelas: "X-1" },
+            { nama: "Luvita Putri Nur Hakim", kelas: "X-5" },
+            { nama: "Maulana Rizal", kelas: "XI-3" },
             { nama: "Meisya Indriyanti", kelas: "X-6" },
-            { nama: "Muhamad Iqbal", kelas: "X-8" },
-            { nama: "Rio Noda Ferdinand", kelas: "X-4" },
-            { nama: "Desri Devi", kelas: "" },
+            { nama: "Muhamad Iqbal Baihaqi", kelas: "X-8" },
+            { nama: "Muhammad Kathan Abdinaafi", kelas: "XI-2" },
+            { nama: "Naila Nazma Sulaeman", kelas: "XI-6" },
+            { nama: "Nasywa Yasmine As-Salwa", kelas: "XI-11" },
+            { nama: "Pitriyani", kelas: "XI-8" },
+            { nama: "Raditya Rasya Aliy Putra", kelas: "XI-11" },
+            { nama: "Raditya Zia Zahran", kelas: "XI-3" },
+            { nama: "Rio Nada Ferdinand", kelas: "X-4" },
+            { nama: "Risma Melati Kurnia", kelas: "XI-8" },
+            { nama: "Rizal Abdillah", kelas: "XI-7" },
+            { nama: "Rizki Alvian", kelas: "X-6" },
+            { nama: "Selfira Nurul Badila", kelas: "X-9" },
+            { nama: "Silvia Tita Afriliani", kelas: "XI-11" },
+            { nama: "Siti Nur Mariam", kelas: "X-4" },
+            { nama: "Syifa Nurhajijah", kelas: "XI-3" },
+            { nama: "Syifa Salsa Bilah", kelas: "XI-2" },
+            { nama: "Ufairah Ghaisani Hafidzah", kelas: "XI-11" },
+            { nama: "Wali Setiawan", kelas: "XI-10" },
+            { nama: "Wandaeni Nurhasanah", kelas: "XI-10" },
+            { nama: "Wenda Widiarti", kelas: "X-11" },
+            { nama: "Widdya Cahya Carisa", kelas: "XI-2" },
+            { nama: "Wildan Firasat Chandra", kelas: "XI-12" }
         ];
 
         // ================================================================
         //  KONFIGURASI URL 
         // ================================================================
         const CONFIG = {
-            API_ABSENSI: 'https://script.google.com/macros/s/AKfycbzE4yBVqidzeWf73ZGuIUjsVKdfBmzXVZdunNsTYJa8iTMU6op99X3n16n3167a6OK8cw/exec',
-            API_KAS: 'https://script.google.com/macros/s/AKfycbx7KoNLzY8eSW_sNOwJ6ymD1xXSYrCkkvIVKENMZiFAyVoZeTb1ZpSKyvzSfZgvA1xX/exec'
+            API_ABSENSI: 'https://script.google.com/macros/s/AKfycbw1Dm8GOg-C3Ts2ubI5DzmoOGA0KOm8YdtpZJCVNfLTMRxdRM1_R4MqqVPhQq74tI0mHA/exec',
+            API_KAS: 'https://script.google.com/macros/s/AKfycbzeTJXa_zA1jOOgsakzVJCwl6iuA4Vgz5rFrgTdJ--2Dzqe17akcqHlQRkrxvCXV9YF/exec'
         };
 
         // ================================================================
@@ -634,7 +713,16 @@
             let html = '';
             filteredKasStudents.forEach(s => {
                 const nominal = kasStatus[s.nama] || 0;
-                const statusClass = nominal > 0 ? 'status-bayar' : '';
+                let statusClass = '';
+                let statusBadgeHtml = '';
+
+                if (nominal > 0) {
+                    statusClass = 'status-bayar';
+                } else {
+                    statusClass = 'status-belum-bayar';
+                    statusBadgeHtml = `<span class="badge-belum-bayar">Belum bayar</span>`;
+                }
+
                 const nominals = [2000, 3000, 4000, 5000, 6000];
                 let btns = '';
                 nominals.forEach(val => {
@@ -643,7 +731,21 @@
                 });
                 const isKhusus = ![2000, 3000, 4000, 5000, 6000].includes(nominal) && nominal > 0;
                 const displayKhusus = isKhusus ? 'flex' : 'none';
-                html += `<div class="kas-item ${statusClass}" data-name="${s.nama}"><div class="info"><span class="name">${s.nama}</span><span class="class-badge">${s.kelas || '-'}</span></div><div class="kas-nominal-group">${btns}<button class="btn-kas-nominal btn-outline-primary btn-kas-khusus-trigger" data-student="${s.nama}">💲 Khusus</button><div class="kas-khusus-wrapper" style="display: ${displayKhusus};" data-student="${s.nama}"><input type="number" class="kas-khusus-input" placeholder="Rp" min="1" value="${isKhusus ? nominal : ''}" /></div></div></div>`;
+                
+                html += `<div class="kas-item ${statusClass}" data-name="${s.nama}">
+                            <div class="info">
+                                <span class="name">${s.nama}</span>
+                                <span class="class-badge">${s.kelas || '-'}</span>
+                                ${statusBadgeHtml}
+                            </div>
+                            <div class="kas-nominal-group">
+                                ${btns}
+                                <button class="btn-kas-nominal btn-outline-primary btn-kas-khusus-trigger" data-student="${s.nama}">💲 Khusus</button>
+                                <div class="kas-khusus-wrapper" style="display: ${displayKhusus};" data-student="${s.nama}">
+                                    <input type="number" class="kas-khusus-input" placeholder="Rp" min="1" value="${isKhusus ? nominal : ''}" />
+                                </div>
+                            </div>
+                        </div>`;
             });
             kasListContainer.innerHTML = html;
             document.querySelectorAll('.btn-kas-nominal[data-value]').forEach(btn => {
@@ -686,8 +788,24 @@
             const item = document.querySelector(`.kas-item[data-name="${nama}"]`);
             const val = kasStatus[nama] || 0;
             if (item) {
-                if (val > 0) item.classList.add('status-bayar');
-                else item.classList.remove('status-bayar');
+                if (val > 0) {
+                    item.classList.add('status-bayar');
+                    item.classList.remove('status-belum-bayar');
+                    // Hapus badge "Belum bayar" jika ada
+                    const badge = item.querySelector('.badge-belum-bayar');
+                    if(badge) badge.remove();
+                } else {
+                    item.classList.add('status-belum-bayar');
+                    item.classList.remove('status-bayar');
+                    // Tambahkan badge "Belum bayar" jika belum ada
+                    if (!item.querySelector('.badge-belum-bayar')) {
+                        const info = item.querySelector('.info');
+                        const badge = document.createElement('span');
+                        badge.className = 'badge-belum-bayar';
+                        badge.textContent = 'Belum bayar';
+                        info.appendChild(badge);
+                    }
+                }
             }
             updateKasStats();
         }
@@ -707,7 +825,7 @@
         }
 
         // ================================================================
-        //  SAVE FUNCTIONS
+        //  SAVE FUNCTIONS (DIUBAH BAGIAN KAS)
         // ================================================================
         async function saveAbsensi() {
             const tanggal = absensiDate.value;
@@ -738,18 +856,34 @@
         async function saveKas() {
             const tanggal = kasDate.value;
             if (!tanggal) { showToast('Tanggal wajib diisi!', 'error'); return; }
-            const dataBayar = STUDENTS_DATA.filter(s => kasStatus[s.nama] && kasStatus[s.nama] > 0).map(s => ({ nama: s.nama, kelas: s.kelas, nominal: kasStatus[s.nama] }));
-            if (dataBayar.length === 0) { showToast('Belum ada siswa yang dipilih untuk membayar kas!', 'error'); return; }
-            if (!confirm(`Simpan data kas untuk ${dataBayar.length} siswa?`)) return;
+            
+            // ➡️ DIUBAH: Ambil SEMUA siswa, bukan hanya yang bayar
+            const allData = STUDENTS_DATA.map(s => {
+                const nominal = kasStatus[s.nama] || 0;
+                return {
+                    nama: s.nama,
+                    kelas: s.kelas,
+                    nominal: nominal > 0 ? nominal : "Belum bayar"
+                };
+            });
+
+            // Cek apakah ada yang benar-benar bayar (hanya untuk konfirmasi)
+            const dataBayarCount = STUDENTS_DATA.filter(s => kasStatus[s.nama] && kasStatus[s.nama] > 0).length;
+            if (dataBayarCount === 0) {
+                // Jika tidak ada yang bayar sama sekali, beri peringatan tapi tetap kirim data "Belum bayar"
+                if (!confirm('Tidak ada siswa yang dipilih untuk membayar kas. Semua siswa akan tercatat "Belum bayar". Lanjutkan?')) return;
+            } else {
+                if (!confirm(`Simpan data kas untuk ${STUDENTS_DATA.length} siswa (${dataBayarCount} siswa bayar)?`)) return;
+            }
 
             spinnerKas.style.display = 'inline-block';
             btnSaveKas.disabled = true;
             try {
                 const formData = new FormData();
                 formData.append('tanggal', tanggal);
-                formData.append('data', JSON.stringify(dataBayar));
+                formData.append('data', JSON.stringify(allData)); // Kirim semua data
                 const response = await fetch(CONFIG.API_KAS, { method: 'POST', body: formData });
-                let resultMessage = `✅ Setoran kas ${dataBayar.length} siswa berhasil disimpan!`;
+                let resultMessage = `✅ Data kas ${allData.length} siswa berhasil disimpan!`;
                 try { const result = await response.json(); if (result.message) resultMessage = result.message; } catch (e) {}
                 showToast(resultMessage, 'success');
             } catch (error) {
