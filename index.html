@@ -13,14 +13,62 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <style>
+        /* ===== ROOT VARIABLES ===== */
+        :root {
+            --bg-body: #F8F9FA;
+            --bg-header: linear-gradient(135deg, #1A73E8 0%, #1557b0 100%);
+            --bg-card: #ffffff;
+            --bg-card-hover: #f8f9fa;
+            --text-primary: #202124;
+            --text-secondary: #5f6368;
+            --text-muted: #9aa0a6;
+            --border-color: #e8eaed;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+            --shadow-hover: rgba(0, 0, 0, 0.12);
+            --bg-stats: #f8f9fa;
+            --bg-lobby: white;
+            --bg-input: white;
+            --bg-pin: white;
+            --bg-status: #f1f3f4;
+            --bg-toast: white;
+            --bg-spreadsheet: #e8f0fe;
+            --bg-spreadsheet-hover: #d2e3fc;
+            --transition-bg: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        /* ===== DARK MODE VARIABLES ===== */
+        [data-theme="dark"] {
+            --bg-body: #1a1a2e;
+            --bg-header: linear-gradient(135deg, #0d1b3e 0%, #1a1a2e 100%);
+            --bg-card: #16213e;
+            --bg-card-hover: #1a2744;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b0b0b0;
+            --text-muted: #6c7a8a;
+            --border-color: #2a3a5c;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.5);
+            --bg-stats: #1a2744;
+            --bg-lobby: #16213e;
+            --bg-input: #1a2744;
+            --bg-pin: #16213e;
+            --bg-status: #2a3a5c;
+            --bg-toast: #16213e;
+            --bg-spreadsheet: #1a3a5c;
+            --bg-spreadsheet-hover: #2a4a6c;
+        }
+
+        /* ===== GLOBAL ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: #F8F9FA; 
-            color: #202124; 
+            background-color: var(--bg-body);
+            color: var(--text-primary);
             padding-bottom: 40px;
             min-height: 100vh;
             overflow-x: hidden;
+            transition: var(--transition-bg);
         }
 
         /* ===== CONFETI STYLES ===== */
@@ -140,7 +188,7 @@
             }
         }
 
-        /* Efek "WOW" di tengah layar - Lebih Cantik */
+        /* Efek "WOW" di tengah layar */
         .confetti-wow {
             position: fixed;
             top: 50%;
@@ -209,7 +257,7 @@
             }
         }
 
-        /* ===== RESPONSIVE CONFETI - LEBIH BAGUS ===== */
+        /* ===== RESPONSIVE CONFETI ===== */
         @media (max-width: 768px) {
             .confetti-wow {
                 font-size: 2.4rem !important;
@@ -258,32 +306,111 @@
             }
         }
 
+        /* ===== DARK MODE TOGGLE BUTTON ===== */
+        .theme-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            flex-shrink: 0;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+        }
+
+        .theme-toggle .toggle-thumb {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #f1c40f;
+        }
+
+        .theme-toggle .toggle-thumb i {
+            transition: all 0.4s ease;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background: #2a3a5c;
+        }
+
+        [data-theme="dark"] .theme-toggle .toggle-thumb {
+            left: 33px;
+            background: #1a1a2e;
+            color: #f1c40f;
+        }
+
+        [data-theme="dark"] .theme-toggle .toggle-thumb i {
+            transform: rotate(360deg);
+        }
+
+        /* Efek ripple saat toggle */
+        .theme-toggle .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: rippleAnim 0.6s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes rippleAnim {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+
         /* ===== PIN MODAL ===== */
         .pin-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
             z-index: 99999; display: none;
             justify-content: center; align-items: center;
+            transition: var(--transition-bg);
         }
         .pin-modal-box {
-            background: white; padding: 40px 30px; border-radius: 20px;
+            background: var(--bg-pin);
+            padding: 40px 30px;
+            border-radius: 20px;
             box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             text-align: center; max-width: 400px; width: 90%;
-            color: #202124; position: relative;
+            color: var(--text-primary);
+            position: relative;
+            transition: var(--transition-bg);
         }
         .pin-modal-box h3 { font-weight: 700; margin-bottom: 5px; color: #1A73E8; }
-        .pin-modal-box p { font-size: 0.9rem; color: #5f6368; margin-bottom: 20px; }
+        .pin-modal-box p { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 20px; }
         .pin-modal-box .close-pin-btn {
             position: absolute; top: 15px; right: 20px;
             background: none; border: none; font-size: 1.5rem; color: #999; cursor: pointer;
+            transition: color 0.3s;
         }
         .pin-modal-box .close-pin-btn:hover { color: #dc3545; }
         
         .pin-input-group { display: flex; gap: 12px; justify-content: center; margin-bottom: 10px; }
         .pin-input-group input {
             width: 50px; height: 60px; text-align: center; font-size: 1.8rem; font-weight: 700;
-            border: 2px solid #dadce0; border-radius: 12px; outline: none; background: white;
-            color: #202124; transition: all 0.2s;
+            border: 2px solid var(--border-color);
+            border-radius: 12px; outline: none;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            transition: all 0.3s ease;
         }
         .pin-input-group input:focus { border-color: #1A73E8; box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); transform: scale(1.05); }
         .pin-error { margin-top: 10px; color: #dc3545; font-weight: 600; min-height: 24px; font-size: 0.9rem; }
@@ -301,11 +428,17 @@
         #lobbyScreen .lobby-container {
             max-width: 900px;
             margin: 0 auto;
-            background: white;
+            background: var(--bg-lobby);
             padding: 60px 40px;
             border-radius: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 40px var(--shadow-color);
             position: relative;
+            transition: var(--transition-bg);
+        }
+        #lobbyScreen .lobby-top-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
         }
         #lobbyScreen h1 { 
             font-weight: 800; 
@@ -316,20 +449,24 @@
         }
         #lobbyScreen p.subtitle { 
             font-size: 1.1rem; 
-            color: #5f6368; 
+            color: var(--text-secondary);
             margin-bottom: 40px; 
-            border-bottom: 2px solid #f1f3f4;
+            border-bottom: 2px solid var(--border-color);
             padding-bottom: 20px;
             display: inline-block;
+            transition: var(--transition-bg);
         }
         .lobby-grid {
             display: flex; gap: 30px; flex-wrap: wrap; justify-content: center; 
         }
         .lobby-card {
-            background: white; border-radius: 20px; padding: 45px 35px; flex: 1; min-width: 220px; max-width: 300px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); cursor: pointer;
+            background: var(--bg-card);
+            border-radius: 20px; padding: 45px 35px; flex: 1; min-width: 220px; max-width: 300px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            cursor: pointer;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            border: 2px solid #f1f3f4; text-decoration: none; color: inherit;
+            border: 2px solid var(--border-color);
+            text-decoration: none; color: inherit;
             position: relative; overflow: hidden;
         }
         .lobby-card::before {
@@ -339,9 +476,11 @@
         .lobby-card.absensi::before { background: #1A73E8; }
         .lobby-card.kas::before { background: #34A853; }
         
-        .lobby-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12); border-color: transparent; }
+        .lobby-card:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 15px 35px var(--shadow-hover); border-color: transparent; }
         .lobby-card.absensi:hover { background: #f0f7ff; }
         .lobby-card.kas:hover { background: #f0faf4; }
+        [data-theme="dark"] .lobby-card.absensi:hover { background: #1a2744; }
+        [data-theme="dark"] .lobby-card.kas:hover { background: #1a2744; }
         
         .lobby-card i { 
             font-size: 4.5rem; margin-bottom: 20px; display: block; 
@@ -352,50 +491,135 @@
         .lobby-card.kas i { color: #34A853; }
         
         .lobby-card h4 { font-weight: 700; font-size: 1.6rem; margin-bottom: 8px; }
-        .lobby-card p { color: #5f6368; font-size: 0.95rem; margin: 0; line-height: 1.5; }
+        .lobby-card p { color: var(--text-secondary); font-size: 0.95rem; margin: 0; line-height: 1.5; }
         .lobby-footer {
             margin-top: 35px;
             font-size: 0.85rem;
-            color: #9aa0a6;
+            color: var(--text-muted);
             letter-spacing: 1px;
+            transition: var(--transition-bg);
         }
 
         /* ===== MAIN APP ===== */
         #mainApp { display: none; width: 100%; }
 
-        .app-header { background: linear-gradient(135deg, #1A73E8 0%, #1557b0 100%); color: white; padding: 20px 0 16px; box-shadow: 0 2px 12px rgba(26, 115, 232, 0.3); margin-bottom: 24px; }
+        .app-header { 
+            background: var(--bg-header);
+            color: white; 
+            padding: 20px 0 16px; 
+            box-shadow: 0 2px 12px rgba(26, 115, 232, 0.3); 
+            margin-bottom: 24px;
+            transition: var(--transition-bg);
+        }
         .app-header h1 { font-weight: 700; font-size: 1.6rem; letter-spacing: -0.5px; }
         .app-header .subtitle { font-size: 0.9rem; opacity: 0.85; font-weight: 400; }
-        .app-header .btn-back-lobby { background: rgba(255,255,255,0.2); color: white; border: none; border-radius: 30px; padding: 5px 15px; font-weight: 600; transition: all 0.2s; }
+        .app-header .btn-back-lobby { 
+            background: rgba(255,255,255,0.2); 
+            color: white; 
+            border: none; 
+            border-radius: 30px; 
+            padding: 5px 15px; 
+            font-weight: 600; 
+            transition: all 0.2s; 
+        }
         .app-header .btn-back-lobby:hover { background: rgba(255,255,255,0.4); }
 
-        .card-custom { background: #ffffff; border: none; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: box-shadow 0.2s ease; }
-        .card-custom:hover { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); }
+        .app-header .header-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .card-custom { 
+            background: var(--bg-card);
+            border: none; 
+            border-radius: 16px; 
+            box-shadow: 0 2px 8px var(--shadow-color);
+            transition: box-shadow 0.2s ease, var(--transition-bg);
+        }
+        .card-custom:hover { box-shadow: 0 4px 16px var(--shadow-hover); }
 
         /* ===== STUDENT ITEM ===== */
-        .student-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 12px; background: white; border: 1px solid #e8eaed; transition: all 0.25s ease; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
+        .student-item { 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 12px 16px; border-radius: 12px; 
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: all 0.25s ease; 
+            margin-bottom: 8px; flex-wrap: wrap; gap: 8px; 
+        }
         .student-item .info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 180px; }
-        .student-item .info .name { font-weight: 600; font-size: 0.95rem; color: #202124; }
-        .student-item .info .class-badge { background: #e8f0fe; color: #1A73E8; font-weight: 600; font-size: 0.75rem; padding: 2px 12px; border-radius: 20px; white-space: nowrap; }
+        .student-item .info .name { font-weight: 600; font-size: 0.95rem; color: var(--text-primary); }
+        .student-item .info .class-badge { 
+            background: #e8f0fe; 
+            color: #1A73E8; 
+            font-weight: 600; 
+            font-size: 0.75rem; 
+            padding: 2px 12px; 
+            border-radius: 20px; 
+            white-space: nowrap;
+        }
+        [data-theme="dark"] .student-item .info .class-badge {
+            background: #1a3a5c;
+            color: #4a9ef5;
+        }
         .status-group { display: flex; gap: 6px; flex-wrap: wrap; }
-        .status-group .btn-status { border-radius: 30px; padding: 4px 14px; font-size: 0.8rem; font-weight: 500; border: 2px solid transparent; transition: all 0.15s ease; background: #f1f3f4; color: #5f6368; cursor: pointer; min-width: 52px; text-align: center; }
+        .status-group .btn-status { 
+            border-radius: 30px; padding: 4px 14px; font-size: 0.8rem; font-weight: 500; 
+            border: 2px solid transparent; transition: all 0.15s ease; 
+            background: var(--bg-status);
+            color: var(--text-secondary);
+            cursor: pointer; min-width: 52px; text-align: center; 
+        }
         .status-group .btn-status:hover { transform: scale(1.04); }
         .status-group .btn-status.active-masuk { background: #D4EDDA; border-color: #28a745; color: #155724; }
         .status-group .btn-status.active-izin { background: #FFF3CD; border-color: #ffc107; color: #856404; }
         .status-group .btn-status.active-sakit { background: #FFE5CC; border-color: #fd7e14; color: #7b3f00; }
         .status-group .btn-status.active-kabur { background: #F8D7DA; border-color: #dc3545; color: #721c24; }
+        [data-theme="dark"] .status-group .btn-status.active-masuk { background: #1a4a2a; border-color: #28a745; color: #7ddfa0; }
+        [data-theme="dark"] .status-group .btn-status.active-izin { background: #4a3a1a; border-color: #ffc107; color: #ffd966; }
+        [data-theme="dark"] .status-group .btn-status.active-sakit { background: #4a2a1a; border-color: #fd7e14; color: #ffaa66; }
+        [data-theme="dark"] .status-group .btn-status.active-kabur { background: #4a1a1a; border-color: #dc3545; color: #ff6b6b; }
+        
         .student-item.status-masuk { background: #D4EDDA; border-color: #28a745; }
         .student-item.status-izin { background: #FFF3CD; border-color: #ffc107; }
         .student-item.status-sakit { background: #FFE5CC; border-color: #fd7e14; }
         .student-item.status-kabur { background: #F8D7DA; border-color: #dc3545; }
+        [data-theme="dark"] .student-item.status-masuk { background: #1a3a2a; border-color: #28a745; }
+        [data-theme="dark"] .student-item.status-izin { background: #3a2a1a; border-color: #ffc107; }
+        [data-theme="dark"] .student-item.status-sakit { background: #3a1a1a; border-color: #fd7e14; }
+        [data-theme="dark"] .student-item.status-kabur { background: #3a1a1a; border-color: #dc3545; }
 
         /* ===== KAS ITEM ===== */
-        .kas-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 12px; background: white; border: 1px solid #e8eaed; transition: all 0.25s ease; margin-bottom: 8px; flex-wrap: wrap; gap: 10px; }
+        .kas-item { 
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 12px 16px; border-radius: 12px; 
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            transition: all 0.25s ease; 
+            margin-bottom: 8px; flex-wrap: wrap; gap: 10px; 
+        }
         .kas-item .info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 160px; }
-        .kas-item .info .name { font-weight: 600; font-size: 0.95rem; color: #202124; }
-        .kas-item .info .class-badge { background: #e8f0fe; color: #1A73E8; font-weight: 600; font-size: 0.75rem; padding: 2px 12px; border-radius: 20px; white-space: nowrap; }
+        .kas-item .info .name { font-weight: 600; font-size: 0.95rem; color: var(--text-primary); }
+        .kas-item .info .class-badge { 
+            background: #e8f0fe; 
+            color: #1A73E8; 
+            font-weight: 600; 
+            font-size: 0.75rem; 
+            padding: 2px 12px; 
+            border-radius: 20px; 
+            white-space: nowrap;
+        }
+        [data-theme="dark"] .kas-item .info .class-badge {
+            background: #1a3a5c;
+            color: #4a9ef5;
+        }
         .kas-item.status-bayar { background: #D4EDDA; border-color: #28a745; }
         .kas-item.status-belum-bayar { background: #FFF3CD; border-color: #ffc107; }
+        [data-theme="dark"] .kas-item.status-bayar { background: #1a3a2a; border-color: #28a745; }
+        [data-theme="dark"] .kas-item.status-belum-bayar { background: #3a2a1a; border-color: #ffc107; }
+        
         .badge-belum-bayar {
             background: #ffc107;
             color: #856404;
@@ -406,39 +630,103 @@
             display: inline-block;
             margin-left: auto;
         }
+        [data-theme="dark"] .badge-belum-bayar {
+            background: #4a3a1a;
+            color: #ffd966;
+        }
 
         .kas-nominal-group { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-        .btn-kas-nominal { border-radius: 30px; padding: 4px 14px; font-size: 0.8rem; font-weight: 500; border: 2px solid transparent; transition: all 0.15s ease; background: #f1f3f4; color: #5f6368; cursor: pointer; min-width: 50px; text-align: center; }
+        .btn-kas-nominal { 
+            border-radius: 30px; padding: 4px 14px; font-size: 0.8rem; font-weight: 500; 
+            border: 2px solid transparent; transition: all 0.15s ease; 
+            background: var(--bg-status);
+            color: var(--text-secondary);
+            cursor: pointer; min-width: 50px; text-align: center; 
+        }
         .btn-kas-nominal:hover { transform: scale(1.04); }
         .btn-kas-nominal.active-kas { background: #1A73E8; border-color: #1A73E8; color: white; box-shadow: 0 2px 8px rgba(26, 115, 232, 0.3); }
         .kas-khusus-wrapper { display: none; align-items: center; }
-        .kas-khusus-wrapper input { width: 80px; border-radius: 30px; padding: 4px 10px; font-size: 0.8rem; border: 2px solid #dadce0; outline: none; text-align: center; }
+        .kas-khusus-wrapper input { 
+            width: 80px; border-radius: 30px; padding: 4px 10px; font-size: 0.8rem; 
+            border: 2px solid var(--border-color); 
+            outline: none; text-align: center;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            transition: var(--transition-bg);
+        }
         .kas-khusus-wrapper input:focus { border-color: #1A73E8; }
 
-        .stats-bar { background: #f8f9fa; padding: 10px 16px; border-radius: 12px; font-size: 0.9rem; color: #5f6368; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; }
+        .stats-bar { 
+            background: var(--bg-stats);
+            padding: 10px 16px; 
+            border-radius: 12px; 
+            font-size: 0.9rem; 
+            color: var(--text-secondary);
+            display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            transition: var(--transition-bg);
+        }
         .stats-bar .stat-number { font-weight: 700; color: #1A73E8; }
-        .search-box { border-radius: 30px; padding: 10px 18px; border: 2px solid #dadce0; font-size: 0.95rem; transition: all 0.2s; background: white; }
+        .search-box { 
+            border-radius: 30px; padding: 10px 18px; 
+            border: 2px solid var(--border-color);
+            font-size: 0.95rem; transition: all 0.2s; 
+            background: var(--bg-input);
+            color: var(--text-primary);
+            width: 100%;
+        }
         .search-box:focus { border-color: #1A73E8; box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); outline: none; }
+        .search-box::placeholder {
+            color: var(--text-muted);
+        }
 
         /* ===== TOAST ===== */
         #toastContainer { position: fixed; top: 20px; right: 20px; z-index: 99998; display: flex; flex-direction: column; gap: 10px; max-width: 380px; width: 100%; }
-        .toast-custom { background: white; border-radius: 12px; padding: 14px 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); border-left: 6px solid #28a745; display: flex; align-items: center; gap: 12px; animation: slideInRight 0.35s ease; font-weight: 500; font-size: 0.9rem; }
+        .toast-custom { 
+            background: var(--bg-toast);
+            border-radius: 12px; padding: 14px 20px; 
+            box-shadow: 0 4px 20px var(--shadow-color);
+            border-left: 6px solid #28a745; 
+            display: flex; align-items: center; gap: 12px; 
+            animation: slideInRight 0.35s ease; 
+            font-weight: 500; font-size: 0.9rem;
+            color: var(--text-primary);
+            transition: var(--transition-bg);
+        }
         .toast-custom.toast-error { border-left-color: #dc3545; }
         .toast-custom i { font-size: 1.3rem; }
         .toast-custom .toast-close { margin-left: auto; cursor: pointer; font-size: 1.2rem; color: #999; background: none; border: none; padding: 0 4px; }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
 
-        .loading-spinner { display: none; width: 20px; height: 20px; border: 3px solid #e0e0e0; border-top: 3px solid #1A73E8; border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto; }
+        .loading-spinner { display: none; width: 20px; height: 20px; border: 3px solid var(--border-color); border-top: 3px solid #1A73E8; border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        .form-label { font-weight: 600; font-size: 0.9rem; color: #3c4043; }
-        .form-control, .form-select { border-radius: 10px; border: 2px solid #dadce0; padding: 10px 14px; font-size: 0.95rem; }
+        .form-label { font-weight: 600; font-size: 0.9rem; color: var(--text-secondary); transition: var(--transition-bg); }
+        .form-control, .form-select { 
+            border-radius: 10px; border: 2px solid var(--border-color);
+            padding: 10px 14px; font-size: 0.95rem;
+            background: var(--bg-input);
+            color: var(--text-primary);
+            transition: var(--transition-bg);
+        }
         .form-control:focus, .form-select:focus { border-color: #1A73E8; box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); }
+        .form-control::placeholder {
+            color: var(--text-muted);
+        }
+        
         .btn-primary-custom { background: #1A73E8; border: none; border-radius: 30px; padding: 10px 28px; font-weight: 600; color: white; transition: all 0.2s; }
         .btn-primary-custom:hover { background: #1557b0; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3); }
         .btn-primary-custom:disabled { opacity: 0.6; transform: none; }
-        .btn-outline-secondary-custom { border-radius: 30px; padding: 10px 28px; font-weight: 600; }
-        .empty-state { text-align: center; padding: 40px 20px; color: #9aa0a6; }
+        .btn-outline-secondary-custom { 
+            border-radius: 30px; padding: 10px 28px; font-weight: 600;
+            border-color: var(--border-color);
+            color: var(--text-secondary);
+            background: transparent;
+            transition: var(--transition-bg);
+        }
+        .btn-outline-secondary-custom:hover {
+            background: var(--bg-status);
+        }
+        .empty-state { text-align: center; padding: 40px 20px; color: var(--text-muted); }
         .empty-state i { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5; }
         .tab-content { padding-top: 20px; }
 
@@ -446,12 +734,15 @@
         .connection-status.online { background: #D4EDDA; color: #155724; }
         .connection-status.offline { background: #F8D7DA; color: #721c24; }
         .connection-status.checking { background: #FFF3CD; color: #856404; }
+        [data-theme="dark"] .connection-status.online { background: #1a3a2a; color: #7ddfa0; }
+        [data-theme="dark"] .connection-status.offline { background: #3a1a1a; color: #ff6b6b; }
+        [data-theme="dark"] .connection-status.checking { background: #3a2a1a; color: #ffd966; }
 
         .btn-spreadsheet-link {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: #e8f0fe;
+            background: var(--bg-spreadsheet);
             color: #1A73E8;
             padding: 8px 20px;
             border-radius: 30px;
@@ -463,12 +754,15 @@
             margin-bottom: 15px;
         }
         .btn-spreadsheet-link:hover {
-            background: #d2e3fc;
+            background: var(--bg-spreadsheet-hover);
             transform: scale(1.02);
             border-color: #1A73E8;
         }
         .btn-spreadsheet-link i {
             font-size: 1rem;
+        }
+        [data-theme="dark"] .btn-spreadsheet-link {
+            color: #4a9ef5;
         }
 
         /* ===== RESPONSIVE ===== */
@@ -486,11 +780,17 @@
             .lobby-card { padding: 30px 20px; min-width: 150px; max-width: 100%; width: 100%; }
             .lobby-card i { font-size: 3rem; }
             .lobby-grid { flex-direction: column; align-items: center; width: 100%; }
+            .theme-toggle { width: 50px; height: 26px; }
+            .theme-toggle .toggle-thumb { width: 20px; height: 20px; }
+            [data-theme="dark"] .theme-toggle .toggle-thumb { left: 27px; }
         }
         @media (max-width: 480px) {
             .student-item .info .name, .kas-item .info .name { font-size: 0.85rem; }
             .stats-bar { font-size: 0.8rem; flex-direction: column; gap: 4px; text-align: center; }
             body { padding: 20px 10px; }
+            .theme-toggle { width: 44px; height: 24px; }
+            .theme-toggle .toggle-thumb { width: 18px; height: 18px; top: 3px; left: 3px; font-size: 10px; }
+            [data-theme="dark"] .theme-toggle .toggle-thumb { left: 23px; }
         }
     </style>
 </head>
@@ -518,6 +818,14 @@
     <!-- ===== LOBBY ===== -->
     <div id="lobbyScreen">
         <div class="lobby-container">
+            <!-- Dark Mode Toggle di Lobby -->
+            <div class="lobby-top-bar">
+                <button class="theme-toggle" id="themeToggleLobby" aria-label="Toggle theme">
+                    <span class="toggle-thumb">
+                        <i class="fas fa-moon"></i>
+                    </span>
+                </button>
+            </div>
             <h1><i class="fas fa-laptop-code me-2"></i>IT Club Manager</h1>
             <p class="subtitle">Ekstrakurikuler IT · Pilih menu yang ingin diakses</p>
             <div class="lobby-grid">
@@ -547,7 +855,13 @@
                         <h1><i class="fas fa-laptop-code me-2"></i>IT Club Manager</h1>
                         <div class="subtitle" id="appSubtitle">Ekstrakurikuler IT</div>
                     </div>
-                    <div class="text-end d-flex align-items-center gap-2">
+                    <div class="header-right">
+                        <!-- DARK MODE TOGGLE di Menu -->
+                        <button class="theme-toggle" id="themeToggleMenu" aria-label="Toggle theme">
+                            <span class="toggle-thumb">
+                                <i class="fas fa-moon"></i>
+                            </span>
+                        </button>
                         <button class="btn btn-back-lobby" id="btnBackLobby">
                             <i class="fas fa-arrow-left me-1"></i> Kembali
                         </button>
@@ -634,38 +948,83 @@
 
     <script>
         // ================================================================
-        //  CONFETI ANIMATION - LEBIH BAGUS DI HP
+        //  DARK MODE TOGGLE - Synchronized
+        // ================================================================
+        const themeToggleLobby = document.getElementById('themeToggleLobby');
+        const themeToggleMenu = document.getElementById('themeToggleMenu');
+        const toggleThumbs = document.querySelectorAll('.toggle-thumb');
+        
+        let currentTheme = localStorage.getItem('theme') || 'light';
+        
+        function updateThemeUI(theme) {
+            const isDark = theme === 'dark';
+            
+            // Update document attribute
+            if (isDark) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            
+            // Update semua toggle thumb
+            toggleThumbs.forEach(thumb => {
+                thumb.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+            });
+            
+            localStorage.setItem('theme', theme);
+        }
+        
+        // Terapkan tema awal
+        updateThemeUI(currentTheme);
+        
+        function toggleTheme(e) {
+            // Buat efek ripple
+            const rect = this.getBoundingClientRect();
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            const size = Math.max(rect.width, rect.height);
+            ripple.style.width = ripple.style.height = size + 'px';
+            ripple.style.left = (e.clientX - rect.left - size/2) + 'px';
+            ripple.style.top = (e.clientY - rect.top - size/2) + 'px';
+            this.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+            
+            // Toggle tema
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            updateThemeUI(isDark ? 'light' : 'dark');
+        }
+        
+        // Event listener untuk kedua toggle
+        themeToggleLobby.addEventListener('click', toggleTheme);
+        themeToggleMenu.addEventListener('click', toggleTheme);
+
+        // ================================================================
+        //  CONFETI ANIMATION
         // ================================================================
         function showConfetti(type = 'absensi') {
             const container = document.getElementById('confettiContainer');
             container.innerHTML = '';
             
-            // Deteksi ukuran layar
             const isMobile = window.innerWidth < 768;
             const isSmallMobile = window.innerWidth < 480;
             
-            // Jumlah partikel - optimal untuk performa
             let totalPieces = 100;
             if (isSmallMobile) totalPieces = 65;
             else if (isMobile) totalPieces = 80;
             
-            // Warna untuk konfeti
             const colors = type === 'absensi' 
                 ? ['#1A73E8', '#34A853', '#EA4335', '#FBBC05', '#4285F4', '#0F9D58', '#FF6D01', '#46BDC6', '#9C27B0', '#FF5722']
                 : ['#34A853', '#1A73E8', '#F9AB00', '#EA4335', '#0F9D58', '#FFD700', '#FF6B6B', '#4ECDC4', '#FF8F00', '#00BCD4'];
             
-            // Emoji untuk masing-masing tipe
             const emojis = type === 'absensi'
                 ? ['⭐', '🌟', '✨', '🎯', '📋', '✅', '🏆', '🎉', '💫', '🌈']
                 : ['💰', '💵', '💎', '🪙', '🏦', '💲', '🎉', '✨', '💸', '🏅'];
             
-            // Ukuran lebih proporsional di HP
             const sizeMultiplier = isSmallMobile ? 0.7 : isMobile ? 0.85 : 1;
             const emojiSize = isSmallMobile ? 18 : isMobile ? 22 : 30;
             const starSize = isSmallMobile ? 14 : isMobile ? 18 : 24;
             const sparkleSize = isSmallMobile ? 4 : isMobile ? 5 : 7;
             
-            // 1. CONFETI WARNA-WARNI (55%)
             const colorCount = Math.floor(totalPieces * 0.55);
             for (let i = 0; i < colorCount; i++) {
                 const piece = document.createElement('div');
@@ -685,7 +1044,6 @@
                 container.appendChild(piece);
             }
             
-            // 2. EMOJI (20%)
             const emojiCount = Math.floor(totalPieces * 0.2);
             for (let i = 0; i < emojiCount; i++) {
                 const piece = document.createElement('div');
@@ -700,7 +1058,6 @@
                 container.appendChild(piece);
             }
             
-            // 3. BINTANG BERKILAU (12%)
             const starCount = Math.floor(totalPieces * 0.12);
             for (let i = 0; i < starCount; i++) {
                 const piece = document.createElement('div');
@@ -716,7 +1073,6 @@
                 container.appendChild(piece);
             }
             
-            // 4. PARTIKEL BERKILAUAN (13%)
             const sparkleCount = Math.floor(totalPieces * 0.13);
             for (let i = 0; i < sparkleCount; i++) {
                 const piece = document.createElement('div');
@@ -734,7 +1090,6 @@
                 container.appendChild(piece);
             }
             
-            // 5. EFEK "WOW" DI TENGAH LAYAR - LEBIH CANTIK
             const wow = document.createElement('div');
             const messages = type === 'absensi' 
                 ? ['🎉 ABSENSI TERSIMPAN!', '✨ HEBAT!', '📋 BERHASIL!', '✅ MANTAP!']
@@ -743,12 +1098,10 @@
             wow.textContent = messages[Math.floor(Math.random() * messages.length)];
             document.body.appendChild(wow);
             
-            // Hapus "WOW" setelah 3 detik
             setTimeout(() => {
                 if (wow.parentNode) wow.remove();
             }, 3000);
             
-            // Hapus semua confetti setelah 6 detik
             setTimeout(() => {
                 container.innerHTML = '';
             }, 6000);
@@ -858,7 +1211,7 @@
         });
 
         // ================================================================
-        //  DATA SISWA (44 Siswa)
+        //  DATA SISWA
         // ================================================================
         const STUDENTS_DATA = [
             { nama: "Abdul Aziz Nurrohman", kelas: "X-1" },
@@ -981,9 +1334,6 @@
         setInterval(updateClock, 10000);
         updateClock();
 
-        // ================================================================
-        //  CEK KONEKSI
-        // ================================================================
         async function checkConnection() {
             connStatus.className = 'connection-status checking';
             connStatus.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Cek...';
@@ -1192,7 +1542,7 @@
         }
 
         // ================================================================
-        //  SAVE FUNCTIONS DENGAN CONFETI
+        //  SAVE FUNCTIONS
         // ================================================================
         async function saveAbsensi() {
             const tanggal = absensiDate.value;
@@ -1211,10 +1561,7 @@
                 let resultMessage = '✅ Data absensi berhasil disimpan!';
                 try { const result = await response.json(); if (result.message) resultMessage = result.message; } catch (e) {}
                 showToast(resultMessage, 'success');
-                
-                // 🎊 TAMPILKAN CONFETI ABSENSI
                 showConfetti('absensi');
-                
             } catch (error) {
                 showToast('❌ Gagal absensi: ' + error.message, 'error');
                 console.error(error);
@@ -1254,10 +1601,7 @@
                 let resultMessage = `✅ Data kas ${allData.length} siswa berhasil disimpan!`;
                 try { const result = await response.json(); if (result.message) resultMessage = result.message; } catch (e) {}
                 showToast(resultMessage, 'success');
-                
-                // 🎊💰 TAMPILKAN CONFETI KAS DENGAN UANG
                 showConfetti('kas');
-                
             } catch (error) {
                 showToast('❌ Gagal kas: ' + error.message, 'error');
                 console.error(error);
