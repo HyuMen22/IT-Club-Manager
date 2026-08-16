@@ -8,7 +8,7 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Google Fonts: Inter -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
@@ -34,6 +34,8 @@
             --bg-spreadsheet: #e8f0fe;
             --bg-spreadsheet-hover: #d2e3fc;
             --transition-bg: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+            --primary-color: #1A73E8;
+            --secondary-color: #34A853;
         }
 
         /* ===== DARK MODE VARIABLES ===== */
@@ -69,6 +71,790 @@
             min-height: 100vh;
             overflow-x: hidden;
             transition: var(--transition-bg);
+            position: relative;
+        }
+
+        /* ================================================================
+           ELEMEN KEMERDEKAAN INDONESIA 17 AGUSTUS - LEBIH RAMAI
+           ================================================================ */
+        
+        /* Badge 17 Agustus */
+        .merdeka-badge {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            background: linear-gradient(135deg, #FF0000 0%, #FF3333 50%, #FFFFFF 50%, #FFFFFF 100%);
+            padding: 6px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 20px rgba(255, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #fff;
+            animation: merdekaPulse 2s ease-in-out infinite;
+            border: 2px solid #FF0000;
+            pointer-events: none;
+        }
+
+        .merdeka-badge .flag-icon {
+            font-size: 1.2rem;
+        }
+
+        .merdeka-badge .text-red {
+            color: #FF0000;
+        }
+
+        .merdeka-badge .text-white {
+            color: #FFFFFF;
+        }
+
+        @keyframes merdekaPulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+        }
+
+        /* Bendera di pojok */
+        .flag-corner {
+            position: fixed;
+            font-size: 2.5rem;
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+            animation: flagWave 4s ease-in-out infinite alternate;
+        }
+
+        .flag-corner.top-left { top: 80px; left: 10px; }
+        .flag-corner.bottom-right { bottom: 80px; right: 10px; animation-delay: -2s; }
+        .flag-corner.top-right { top: 80px; right: 10px; animation-delay: -3s; }
+        .flag-corner.bottom-left { bottom: 80px; left: 10px; animation-delay: -1s; }
+
+        @keyframes flagWave {
+            0% { transform: rotate(-5deg) scale(1); }
+            100% { transform: rotate(5deg) scale(1.1); }
+        }
+
+        /* Garuda Pancasila */
+        .garuda-mini {
+            position: fixed;
+            font-size: 1.8rem;
+            opacity: 0.08;
+            z-index: 0;
+            pointer-events: none;
+            animation: garudaFly 10s ease-in-out infinite;
+        }
+
+        .garuda-mini.g1 { top: 20%; left: 5%; animation-delay: 0s; }
+        .garuda-mini.g2 { bottom: 25%; right: 5%; animation-delay: -5s; }
+
+        @keyframes garudaFly {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, -15px) rotate(5deg); }
+            50% { transform: translate(-10px, 10px) rotate(-3deg); }
+            75% { transform: translate(15px, -5px) rotate(3deg); }
+        }
+
+        /* ===== ELEMEN KEMERDEKAAN TAMBAHAN ===== */
+        
+        /* Confetti Merah Putih di Background */
+        .red-white-confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.12;
+        }
+
+        .red-white-confetti .rw-piece {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 2px;
+            animation: rwFall linear infinite;
+        }
+
+        .red-white-confetti .rw-piece.red { background: #FF0000; }
+        .red-white-confetti .rw-piece.white { background: #FFFFFF; }
+
+        @keyframes rwFall {
+            0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Teks "DIRGAHAYU INDONESIA" */
+        .dirgahayu-text {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9998;
+            font-weight: 900;
+            font-size: 1rem;
+            color: #FF0000;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            letter-spacing: 4px;
+            pointer-events: none;
+            animation: textGlow 3s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 4px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .dirgahayu-text span {
+            color: #FFFFFF;
+            background: #FF0000;
+            padding: 0 6px;
+            border-radius: 4px;
+        }
+
+        @keyframes textGlow {
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+        }
+
+        /* Bintang / Pita di pojok */
+        .star-decoration {
+            position: fixed;
+            font-size: 1.5rem;
+            opacity: 0.1;
+            z-index: 0;
+            pointer-events: none;
+            animation: starSpin 8s linear infinite;
+        }
+
+        .star-decoration.s1 { top: 15%; left: 15%; }
+        .star-decoration.s2 { bottom: 20%; right: 15%; animation-delay: -3s; }
+        .star-decoration.s3 { top: 30%; right: 20%; animation-delay: -5s; font-size: 1rem; }
+        .star-decoration.s4 { bottom: 30%; left: 20%; animation-delay: -2s; font-size: 1.2rem; }
+
+        @keyframes starSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        /* ================================================================
+           ANIMASI TRANSISI ITECH - SETELAH PIN
+           ================================================================ */
+        .itech-transition {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a1a;
+            z-index: 999999;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .itech-transition.active {
+            display: flex;
+            animation: itechFadeIn 0.3s ease forwards;
+        }
+
+        .itech-transition .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            opacity: 0.15;
+        }
+
+        .itech-transition .matrix-bg .matrix-code {
+            position: absolute;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            animation: matrixFall linear infinite;
+            white-space: nowrap;
+        }
+
+        @keyframes matrixFall {
+            0% { transform: translateY(-100%); opacity: 1; }
+            100% { transform: translateY(100vh); opacity: 0; }
+        }
+
+        .itech-transition .grid-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: gridPulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes gridPulse {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
+        .itech-transition .circuit {
+            position: absolute;
+            border: 1px solid rgba(0, 255, 65, 0.1);
+            border-radius: 50%;
+            animation: circuitPulse 3s ease-in-out infinite alternate;
+        }
+
+        .itech-transition .circuit:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .itech-transition .circuit:nth-child(2) {
+            width: 400px;
+            height: 400px;
+            bottom: 10%;
+            right: -10%;
+            animation-delay: -1s;
+        }
+
+        .itech-transition .circuit:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -2s;
+        }
+
+        @keyframes circuitPulse {
+            0% { 
+                border-color: rgba(0, 255, 65, 0.05);
+                transform: scale(0.8);
+                opacity: 0.3;
+            }
+            100% { 
+                border-color: rgba(0, 255, 65, 0.3);
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        .itech-transition .binary-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .itech-transition .binary-particles .binary-char {
+            position: absolute;
+            color: rgba(0, 255, 65, 0.1);
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 12px;
+            animation: binaryFloat 8s linear infinite;
+        }
+
+        @keyframes binaryFloat {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+        }
+
+        .itech-transition .loading-container {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .itech-transition .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes logoGlow {
+            0% { filter: drop-shadow(0 0 20px rgba(0, 255, 65, 0.2)); }
+            100% { filter: drop-shadow(0 0 40px rgba(0, 255, 65, 0.6)); }
+        }
+
+        .itech-transition .logo-text {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #00ff41;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 8px;
+            text-shadow: 0 0 30px rgba(0, 255, 65, 0.3);
+            animation: textGlitch 3s ease-in-out infinite;
+        }
+
+        @keyframes textGlitch {
+            0%, 90%, 100% { transform: skew(0deg); opacity: 1; }
+            92% { transform: skew(-3deg); opacity: 0.8; }
+            94% { transform: skew(3deg); opacity: 0.9; }
+            96% { transform: skew(-2deg); opacity: 0.85; }
+        }
+
+        .itech-transition .logo-sub {
+            font-size: 1rem;
+            color: rgba(0, 255, 65, 0.5);
+            font-weight: 300;
+            letter-spacing: 12px;
+            text-transform: uppercase;
+            font-family: 'Courier New', monospace;
+        }
+
+        .itech-transition .logo-divider {
+            width: 200px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #00ff41, transparent);
+            margin: 5px 0 10px 0;
+            animation: dividerPulse 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes dividerPulse {
+            0% { opacity: 0.3; width: 100px; }
+            100% { opacity: 1; width: 300px; }
+        }
+
+        .itech-transition .loading-bar-container {
+            width: 300px;
+            height: 4px;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.1);
+        }
+
+        .itech-transition .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #00ff41, #00cc33);
+            width: 0%;
+            border-radius: 4px;
+            animation: loadingProgress 2.5s ease-in-out forwards;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        @keyframes loadingProgress {
+            0% { width: 0%; }
+            20% { width: 20%; }
+            40% { width: 45%; }
+            60% { width: 70%; }
+            80% { width: 88%; }
+            100% { width: 100%; }
+        }
+
+        .itech-transition .loading-text {
+            color: rgba(0, 255, 65, 0.6);
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 4px;
+            animation: loadingDots 1.5s steps(4) infinite;
+        }
+
+        @keyframes loadingDots {
+            0% { content: 'Loading.'; }
+            25% { content: 'Loading..'; }
+            50% { content: 'Loading...'; }
+            75% { content: 'Loading....'; }
+        }
+
+        .itech-transition .status-text {
+            color: rgba(0, 255, 65, 0.4);
+            font-family: 'Courier New', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            animation: statusFade 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes statusFade {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.8; }
+        }
+
+        .itech-transition .scanline {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 65, 0.1), transparent);
+            animation: scanlineMove 3s linear infinite;
+            z-index: 2;
+        }
+
+        @keyframes scanlineMove {
+            0% { top: -2px; }
+            100% { top: 100%; }
+        }
+
+        /* ===== RESPONSIVE KEMERDEKAAN ===== */
+        @media (max-width: 768px) {
+            .merdeka-badge {
+                font-size: 0.6rem !important;
+                padding: 4px 12px !important;
+                top: 5px !important;
+                gap: 6px !important;
+            }
+            .merdeka-badge .flag-icon {
+                font-size: 0.9rem !important;
+            }
+            .flag-corner {
+                font-size: 1.5rem !important;
+            }
+            .flag-corner.top-left { top: 60px; left: 5px; }
+            .flag-corner.top-right { top: 60px; right: 5px; }
+            .flag-corner.bottom-left { bottom: 60px; left: 5px; }
+            .flag-corner.bottom-right { bottom: 60px; right: 5px; }
+            .garuda-mini {
+                font-size: 1.2rem !important;
+            }
+            .dirgahayu-text {
+                font-size: 0.65rem !important;
+                padding: 3px 10px !important;
+                bottom: 5px !important;
+                letter-spacing: 2px !important;
+            }
+            .star-decoration {
+                font-size: 1rem !important;
+            }
+            .star-decoration.s1 { top: 10%; left: 10%; }
+            .star-decoration.s2 { bottom: 15%; right: 10%; }
+            .star-decoration.s3 { top: 20%; right: 12%; font-size: 0.8rem !important; }
+            .star-decoration.s4 { bottom: 20%; left: 12%; font-size: 0.9rem !important; }
+            .red-white-confetti .rw-piece {
+                width: 5px !important;
+                height: 5px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .merdeka-badge {
+                font-size: 0.5rem !important;
+                padding: 3px 8px !important;
+                top: 3px !important;
+                gap: 4px !important;
+                border-radius: 20px !important;
+            }
+            .merdeka-badge .flag-icon {
+                font-size: 0.7rem !important;
+            }
+            .flag-corner {
+                font-size: 1.2rem !important;
+            }
+            .flag-corner.top-left { top: 45px; left: 3px; }
+            .flag-corner.top-right { top: 45px; right: 3px; }
+            .flag-corner.bottom-left { bottom: 45px; left: 3px; }
+            .flag-corner.bottom-right { bottom: 45px; right: 3px; }
+            .garuda-mini {
+                font-size: 1rem !important;
+            }
+            .dirgahayu-text {
+                font-size: 0.5rem !important;
+                padding: 2px 8px !important;
+                bottom: 3px !important;
+                letter-spacing: 1px !important;
+                border-radius: 12px !important;
+            }
+            .star-decoration {
+                font-size: 0.8rem !important;
+            }
+            .star-decoration.s1 { top: 8%; left: 8%; }
+            .star-decoration.s2 { bottom: 12%; right: 8%; }
+            .star-decoration.s3 { top: 15%; right: 8%; font-size: 0.6rem !important; }
+            .star-decoration.s4 { bottom: 15%; left: 8%; font-size: 0.7rem !important; }
+            .red-white-confetti .rw-piece {
+                width: 4px !important;
+                height: 4px !important;
+            }
+        }
+
+        /* ===== BACKGROUND ANIMASI HALUS ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bg-animation .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.15;
+            animation: orbFloat 20s ease-in-out infinite alternate;
+        }
+
+        .bg-animation .orb:nth-child(1) {
+            width: 400px;
+            height: 400px;
+            background: #1A73E8;
+            top: -10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .bg-animation .orb:nth-child(2) {
+            width: 350px;
+            height: 350px;
+            background: #34A853;
+            bottom: -10%;
+            right: -5%;
+            animation-delay: -5s;
+        }
+
+        .bg-animation .orb:nth-child(3) {
+            width: 300px;
+            height: 300px;
+            background: #EA4335;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -10s;
+            animation-duration: 25s;
+        }
+
+        .bg-animation .orb:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            background: #FBBC05;
+            top: 20%;
+            right: 10%;
+            animation-delay: -15s;
+            animation-duration: 18s;
+        }
+
+        @keyframes orbFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(50px, -30px) scale(1.1);
+            }
+            50% {
+                transform: translate(-20px, 40px) scale(0.9);
+            }
+            75% {
+                transform: translate(30px, -10px) scale(1.05);
+            }
+            100% {
+                transform: translate(-40px, 20px) scale(0.95);
+            }
+        }
+
+        [data-theme="dark"] .bg-animation .orb {
+            opacity: 0.08;
+        }
+
+        /* ================================================================
+           BUTTON HOVER EFFECT
+           ================================================================ */
+        .btn-primary-custom {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 30px;
+            padding: 10px 28px;
+            font-weight: 600;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary-custom:hover {
+            background: #1557b0;
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(26, 115, 232, 0.35);
+        }
+
+        .btn-primary-custom:active {
+            transform: translateY(0px) scale(0.98);
+        }
+
+        .btn-primary-custom::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.15),
+                transparent
+            );
+            transform: rotate(25deg) translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-primary-custom:hover::before {
+            transform: rotate(25deg) translateX(100%);
+        }
+
+        .btn-outline-secondary-custom {
+            border-radius: 30px;
+            padding: 10px 28px;
+            font-weight: 600;
+            border: 2px solid var(--border-color);
+            color: var(--text-secondary);
+            background: transparent;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-outline-secondary-custom:hover {
+            background: var(--bg-status);
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+
+        .btn-outline-secondary-custom:active {
+            transform: translateY(0px) scale(0.98);
+        }
+
+        .btn-kas-nominal {
+            border-radius: 30px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: var(--bg-status);
+            color: var(--text-secondary);
+            cursor: pointer;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .btn-kas-nominal:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .btn-kas-nominal.active-kas {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.35);
+        }
+
+        .status-group .btn-status {
+            border-radius: 30px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 2px solid transparent;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: var(--bg-status);
+            color: var(--text-secondary);
+            cursor: pointer;
+            min-width: 52px;
+            text-align: center;
+        }
+
+        .status-group .btn-status:hover {
+            transform: translateY(-2px) scale(1.04);
+            box-shadow: 0 4px 12px var(--shadow-color);
+        }
+
+        .status-group .btn-status.active-masuk {
+            background: #D4EDDA;
+            border-color: #28a745;
+            color: #155724;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .status-group .btn-status.active-izin {
+            background: #FFF3CD;
+            border-color: #ffc107;
+            color: #856404;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.3);
+        }
+
+        .status-group .btn-status.active-sakit {
+            background: #FFE5CC;
+            border-color: #fd7e14;
+            color: #7b3f00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(253, 126, 20, 0.3);
+        }
+
+        .status-group .btn-status.active-kabur {
+            background: #F8D7DA;
+            border-color: #dc3545;
+            color: #721c24;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+        }
+
+        .lobby-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 45px 35px;
+            flex: 1;
+            min-width: 220px;
+            max-width: 300px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid var(--border-color);
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .lobby-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 20px 50px var(--shadow-hover);
+            border-color: transparent;
+        }
+
+        .app-header .btn-back-lobby {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 5px 15px;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .app-header .btn-back-lobby:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.05);
         }
 
         /* ===== CONFETI STYLES ===== */
@@ -188,7 +974,6 @@
             }
         }
 
-        /* Efek "WOW" di tengah layar */
         .confetti-wow {
             position: fixed;
             top: 50%;
@@ -257,7 +1042,6 @@
             }
         }
 
-        /* ===== RESPONSIVE CONFETI ===== */
         @media (max-width: 768px) {
             .confetti-wow {
                 font-size: 2.4rem !important;
@@ -279,6 +1063,20 @@
             .confetti-piece.sparkle {
                 width: 4px !important;
                 height: 4px !important;
+            }
+            .itech-transition .logo-text {
+                font-size: 2.5rem !important;
+                letter-spacing: 4px !important;
+            }
+            .itech-transition .logo-sub {
+                font-size: 0.7rem !important;
+                letter-spacing: 6px !important;
+            }
+            .itech-transition .loading-bar-container {
+                width: 200px !important;
+            }
+            .itech-transition .logo-divider {
+                width: 120px !important;
             }
         }
 
@@ -303,6 +1101,23 @@
             .confetti-piece.sparkle {
                 width: 3px !important;
                 height: 3px !important;
+            }
+            .itech-transition .logo-text {
+                font-size: 2rem !important;
+                letter-spacing: 3px !important;
+            }
+            .itech-transition .logo-sub {
+                font-size: 0.6rem !important;
+                letter-spacing: 4px !important;
+            }
+            .itech-transition .loading-bar-container {
+                width: 150px !important;
+            }
+            .itech-transition .loading-text {
+                font-size: 0.6rem !important;
+            }
+            .itech-transition .status-text {
+                font-size: 0.5rem !important;
             }
         }
 
@@ -359,7 +1174,6 @@
             transform: rotate(360deg);
         }
 
-        /* Efek ripple saat toggle */
         .theme-toggle .ripple {
             position: absolute;
             border-radius: 50%;
@@ -796,6 +1610,78 @@
 </head>
 <body>
 
+    <!-- ================================================================ -->
+    <!--  ELEMEN KEMERDEKAAN INDONESIA 17 AGUSTUS - LEBIH RAMAI         -->
+    <!-- ================================================================ -->
+
+    <!-- 1. Badge 17 Agustus -->
+    <div class="merdeka-badge">
+        <span class="flag-icon">🇮🇩</span>
+        <span>
+            <span class="text-red">17</span>
+            <span class="text-white">AGUSTUS</span>
+            <span class="text-red">1945</span>
+        </span>
+        <span class="flag-icon">🇮🇩</span>
+    </div>
+
+    <!-- 2. Bendera di 4 pojok -->
+    <div class="flag-corner top-left">🇮🇩</div>
+    <div class="flag-corner bottom-right">🇮🇩</div>
+    <div class="flag-corner top-right">🇮🇩</div>
+    <div class="flag-corner bottom-left">🇮🇩</div>
+
+    <!-- 3. Garuda Pancasila -->
+    <div class="garuda-mini g1">🦅</div>
+    <div class="garuda-mini g2">🦅</div>
+
+    <!-- 4. Confetti Merah Putih di background -->
+    <div class="red-white-confetti" id="rwConfetti"></div>
+
+    <!-- 5. Teks DIRGAHAYU INDONESIA -->
+    <div class="dirgahayu-text">
+        🇮🇩 <span>DIRGAHAYU</span> INDONESIA <span>🇮🇩</span>
+    </div>
+
+    <!-- 6. Bintang / Pita di pojok -->
+    <div class="star-decoration s1">⭐</div>
+    <div class="star-decoration s2">⭐</div>
+    <div class="star-decoration s3">⭐</div>
+    <div class="star-decoration s4">⭐</div>
+
+    <!-- ================================================================ -->
+    <!--  ITECH TRANSITION                                                -->
+    <!-- ================================================================ -->
+    <div class="itech-transition" id="itechTransition">
+        <div class="matrix-bg" id="matrixBg"></div>
+        <div class="grid-overlay"></div>
+        <div class="circuit"></div>
+        <div class="circuit"></div>
+        <div class="circuit"></div>
+        <div class="binary-particles" id="binaryParticles"></div>
+        <div class="scanline"></div>
+        <div class="loading-container">
+            <div class="logo-container">
+                <div class="logo-text">ITECH</div>
+                <div class="logo-divider"></div>
+                <div class="logo-sub">SMAN 2 PADALARANG</div>
+            </div>
+            <div class="loading-bar-container">
+                <div class="loading-bar"></div>
+            </div>
+            <div class="loading-text">Loading System</div>
+            <div class="status-text" id="statusText">Initializing database...</div>
+        </div>
+    </div>
+
+    <!-- ===== BACKGROUND ANIMASI HALUS ===== -->
+    <div class="bg-animation">
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+        <div class="orb"></div>
+    </div>
+
     <!-- ===== CONFETI CONTAINER ===== -->
     <div class="confetti-container" id="confettiContainer"></div>
 
@@ -818,7 +1704,6 @@
     <!-- ===== LOBBY ===== -->
     <div id="lobbyScreen">
         <div class="lobby-container">
-            <!-- Dark Mode Toggle di Lobby -->
             <div class="lobby-top-bar">
                 <button class="theme-toggle" id="themeToggleLobby" aria-label="Toggle theme">
                     <span class="toggle-thumb">
@@ -856,7 +1741,6 @@
                         <div class="subtitle" id="appSubtitle">Ekstrakurikuler IT</div>
                     </div>
                     <div class="header-right">
-                        <!-- DARK MODE TOGGLE di Menu -->
                         <button class="theme-toggle" id="themeToggleMenu" aria-label="Toggle theme">
                             <span class="toggle-thumb">
                                 <i class="fas fa-moon"></i>
@@ -948,7 +1832,190 @@
 
     <script>
         // ================================================================
-        //  DARK MODE TOGGLE - Synchronized
+        //  GENERATE CONFETI MERAH PUTIH
+        // ================================================================
+        function generateRedWhiteConfetti() {
+            const container = document.getElementById('rwConfetti');
+            if (!container) return;
+            
+            const isMobile = window.innerWidth < 768;
+            const isSmallMobile = window.innerWidth < 480;
+            
+            const count = isSmallMobile ? 25 : isMobile ? 40 : 60;
+            
+            for (let i = 0; i < count; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'rw-piece ' + (Math.random() > 0.5 ? 'red' : 'white');
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.width = (4 + Math.random() * 8) + 'px';
+                piece.style.height = (4 + Math.random() * 8) + 'px';
+                piece.style.animationDuration = (8 + Math.random() * 10) + 's';
+                piece.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(piece);
+            }
+        }
+
+        // ================================================================
+        //  SOUND EFFECTS
+        // ================================================================
+        const SoundFX = {
+            success: function() {
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = 880;
+                    osc.type = 'sine';
+                    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.3);
+                } catch(e) { /* fallback silent */ }
+            },
+            error: function() {
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.frequency.value = 300;
+                    osc.type = 'sawtooth';
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.5);
+                    osc.start(ctx.currentTime);
+                    osc.stop(ctx.currentTime + 0.5);
+                } catch(e) { /* fallback silent */ }
+            },
+            confetti: function() {
+                try {
+                    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                    const notes = [523, 659, 784, 1047];
+                    notes.forEach((freq, i) => {
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.frequency.value = freq;
+                        osc.type = 'sine';
+                        const startTime = ctx.currentTime + (i * 0.08);
+                        gain.gain.setValueAtTime(0.15, startTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, startTime + 0.2);
+                        osc.start(startTime);
+                        osc.stop(startTime + 0.2);
+                    });
+                } catch(e) { /* fallback silent */ }
+            }
+        };
+
+        // ================================================================
+        //  ITECH TRANSITION
+        // ================================================================
+        const itechTransition = document.getElementById('itechTransition');
+        const matrixBg = document.getElementById('matrixBg');
+        const binaryParticles = document.getElementById('binaryParticles');
+        const statusText = document.getElementById('statusText');
+        let isTransitioning = false;
+
+        const statusMessages = [
+            'Initializing system...',
+            'Loading database...',
+            'Connecting to server...',
+            'Verifying credentials...',
+            'Access granted!',
+            'Welcome to IT Club Manager!'
+        ];
+
+        function generateMatrixCode() {
+            matrixBg.innerHTML = '';
+            const characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (let i = 0; i < 30; i++) {
+                const code = document.createElement('div');
+                code.className = 'matrix-code';
+                let text = '';
+                for (let j = 0; j < 20; j++) {
+                    text += characters[Math.floor(Math.random() * characters.length)];
+                }
+                code.textContent = text;
+                code.style.left = Math.random() * 100 + '%';
+                code.style.fontSize = (10 + Math.random() * 12) + 'px';
+                code.style.animationDuration = (8 + Math.random() * 12) + 's';
+                code.style.animationDelay = (Math.random() * 5) + 's';
+                code.style.opacity = 0.1 + Math.random() * 0.3;
+                matrixBg.appendChild(code);
+            }
+        }
+
+        function generateBinaryParticles() {
+            binaryParticles.innerHTML = '';
+            const chars = ['0', '1'];
+            for (let i = 0; i < 40; i++) {
+                const el = document.createElement('span');
+                el.className = 'binary-char';
+                el.textContent = chars[Math.floor(Math.random() * chars.length)];
+                el.style.left = Math.random() * 100 + '%';
+                el.style.top = Math.random() * 100 + '%';
+                el.style.fontSize = (8 + Math.random() * 14) + 'px';
+                el.style.animationDuration = (6 + Math.random() * 8) + 's';
+                el.style.animationDelay = (Math.random() * 4) + 's';
+                binaryParticles.appendChild(el);
+            }
+        }
+
+        function showITechTransition(callback) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            itechTransition.classList.remove('active');
+            const loadingBar = itechTransition.querySelector('.loading-bar');
+            loadingBar.style.animation = 'none';
+            loadingBar.style.width = '0%';
+            
+            generateMatrixCode();
+            generateBinaryParticles();
+
+            setTimeout(() => {
+                itechTransition.classList.add('active');
+                
+                let msgIndex = 0;
+                const statusInterval = setInterval(() => {
+                    if (msgIndex < statusMessages.length) {
+                        statusText.textContent = statusMessages[msgIndex];
+                        msgIndex++;
+                    } else {
+                        clearInterval(statusInterval);
+                    }
+                }, 400);
+
+                setTimeout(() => {
+                    loadingBar.style.animation = 'loadingProgress 2.5s ease-in-out forwards';
+                }, 100);
+
+                setTimeout(() => {
+                    itechTransition.classList.remove('active');
+                    isTransitioning = false;
+                    if (callback) callback();
+                }, 3500);
+
+            }, 300);
+        }
+
+        // ================================================================
+        //  PAGE TITLE DINAMIS
+        // ================================================================
+        function updatePageTitle(title) {
+            const baseTitle = 'IT Club Manager';
+            if (title && title !== '') {
+                document.title = `${baseTitle} - ${title}`;
+            } else {
+                document.title = baseTitle;
+            }
+        }
+
+        // ================================================================
+        //  DARK MODE TOGGLE
         // ================================================================
         const themeToggleLobby = document.getElementById('themeToggleLobby');
         const themeToggleMenu = document.getElementById('themeToggleMenu');
@@ -958,27 +2025,20 @@
         
         function updateThemeUI(theme) {
             const isDark = theme === 'dark';
-            
-            // Update document attribute
             if (isDark) {
                 document.documentElement.setAttribute('data-theme', 'dark');
             } else {
                 document.documentElement.removeAttribute('data-theme');
             }
-            
-            // Update semua toggle thumb
             toggleThumbs.forEach(thumb => {
                 thumb.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
             });
-            
             localStorage.setItem('theme', theme);
         }
         
-        // Terapkan tema awal
         updateThemeUI(currentTheme);
         
         function toggleTheme(e) {
-            // Buat efek ripple
             const rect = this.getBoundingClientRect();
             const ripple = document.createElement('span');
             ripple.className = 'ripple';
@@ -989,21 +2049,21 @@
             this.appendChild(ripple);
             setTimeout(() => ripple.remove(), 600);
             
-            // Toggle tema
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             updateThemeUI(isDark ? 'light' : 'dark');
         }
         
-        // Event listener untuk kedua toggle
         themeToggleLobby.addEventListener('click', toggleTheme);
         themeToggleMenu.addEventListener('click', toggleTheme);
 
         // ================================================================
-        //  CONFETI ANIMATION
+        //  CONFETI ANIMATION + SOUND
         // ================================================================
         function showConfetti(type = 'absensi') {
             const container = document.getElementById('confettiContainer');
             container.innerHTML = '';
+            
+            SoundFX.confetti();
             
             const isMobile = window.innerWidth < 768;
             const isSmallMobile = window.innerWidth < 480;
@@ -1138,9 +2198,11 @@
             if (target === 'absensi') {
                 pinModalTitle.textContent = '🔒 Masuk ke Absensi';
                 pinModalDesc.textContent = 'Masukkan kode PIN untuk mengelola absensi.';
+                updatePageTitle('Absensi');
             } else {
                 pinModalTitle.textContent = '🔒 Masuk ke Kas / Bendahara';
                 pinModalDesc.textContent = 'Masukkan kode PIN untuk mengelola uang kas.';
+                updatePageTitle('Kas');
             }
 
             pinModal.style.display = 'flex';
@@ -1150,6 +2212,7 @@
         function closePinModalFn() {
             pinModal.style.display = 'none';
             currentTarget = '';
+            updatePageTitle('');
         }
         closePinBtn.addEventListener('click', closePinModalFn);
         pinModal.addEventListener('click', function(e) {
@@ -1177,23 +2240,29 @@
                 let correctPin = (currentTarget === 'absensi') ? PIN_ABSENSI : PIN_KAS;
                 
                 if (enteredPin === correctPin) {
-                    pinModal.style.display = 'none';
-                    lobbyScreen.style.display = 'none';
-                    mainApp.style.display = 'block';
+                    showITechTransition(() => {
+                        pinModal.style.display = 'none';
+                        lobbyScreen.style.display = 'none';
+                        mainApp.style.display = 'block';
+                        
+                        if (currentTarget === 'absensi') {
+                            appSubtitle.textContent = 'Ekstrakurikuler IT · Mode Absensi';
+                            menuAbsensiWrapper.style.display = 'block';
+                            menuKasWrapper.style.display = 'none';
+                            updatePageTitle('Absensi');
+                            initAbsensi();
+                        } else {
+                            appSubtitle.textContent = 'Ekstrakurikuler IT · Mode Kas / Bendahara';
+                            menuAbsensiWrapper.style.display = 'none';
+                            menuKasWrapper.style.display = 'block';
+                            updatePageTitle('Kas');
+                            initKas();
+                        }
+                    });
                     
-                    if (currentTarget === 'absensi') {
-                        appSubtitle.textContent = 'Ekstrakurikuler IT · Mode Absensi';
-                        menuAbsensiWrapper.style.display = 'block';
-                        menuKasWrapper.style.display = 'none';
-                        initAbsensi();
-                    } else {
-                        appSubtitle.textContent = 'Ekstrakurikuler IT · Mode Kas / Bendahara';
-                        menuAbsensiWrapper.style.display = 'none';
-                        menuKasWrapper.style.display = 'block';
-                        initKas();
-                    }
                 } else {
                     pinError.textContent = '❌ PIN Salah! Silakan coba lagi.';
+                    SoundFX.error();
                     setTimeout(() => {
                         pinInputs.forEach(input => { input.value = ''; });
                         pinInputs[0].focus();
@@ -1207,6 +2276,7 @@
             lobbyScreen.style.display = 'flex';
             menuAbsensiWrapper.style.display = 'none';
             menuKasWrapper.style.display = 'none';
+            updatePageTitle('');
             closePinModalFn();
         });
 
@@ -1317,6 +2387,14 @@
                 <button class="toast-close"><i class="fas fa-times"></i></button>
             `;
             container.appendChild(toast);
+            
+            if (type === 'success') {
+                SoundFX.success();
+                setTimeout(() => SoundFX.confetti(), 200);
+            } else if (type === 'error') {
+                SoundFX.error();
+            }
+            
             setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
             toast.querySelector('.toast-close').addEventListener('click', () => { toast.remove(); });
         }
@@ -1638,6 +2716,11 @@
             setTimeout(checkConnection, 1000);
             console.log('✅ Mode Kas aktif.');
         }
+
+        // Generate Red-White Confetti saat halaman dimuat
+        generateRedWhiteConfetti();
+
+        updatePageTitle('');
     </script>
 </body>
 </html>
