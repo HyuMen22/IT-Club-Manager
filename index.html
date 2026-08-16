@@ -20,16 +20,182 @@
             color: #202124; 
             padding-bottom: 40px;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            overflow-x: hidden;
         }
 
-        /* --- STYLE UNTUK LAYAR PIN (MODAL) --- */
+        /* ===== CONFETI STYLES ===== */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 99999;
+            overflow: hidden;
+        }
+
+        .confetti-piece {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            animation: confettiFall linear forwards;
+        }
+
+        .confetti-piece.uang {
+            font-size: 30px;
+            animation: confettiFallUang linear forwards;
+        }
+
+        .confetti-piece.star {
+            font-size: 24px;
+            animation: confettiFallStar linear forwards;
+        }
+
+        .confetti-piece.sparkle {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: confettiFallSparkle linear forwards;
+            box-shadow: 0 0 20px currentColor;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        @keyframes confettiFallUang {
+            0% {
+                transform: translateY(-30px) rotate(0deg) scale(0.5) translateX(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+                transform: translateY(0vh) rotate(30deg) scale(1.2) translateX(20px);
+            }
+            30% {
+                transform: translateY(30vh) rotate(180deg) scale(1.3) translateX(-40px);
+            }
+            60% {
+                transform: translateY(60vh) rotate(360deg) scale(1) translateX(50px);
+            }
+            85% {
+                transform: translateY(85vh) rotate(540deg) scale(1.1) translateX(-20px);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0.5) translateX(0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes confettiFallStar {
+            0% {
+                transform: translateY(-30px) rotate(0deg) scale(0) translateX(0);
+                opacity: 0;
+            }
+            20% {
+                transform: translateY(20vh) rotate(120deg) scale(1.5) translateX(30px);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) rotate(240deg) scale(1.2) translateX(-40px);
+                opacity: 1;
+            }
+            80% {
+                transform: translateY(80vh) rotate(480deg) scale(1.3) translateX(25px);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) rotate(720deg) scale(0.3) translateX(0);
+                opacity: 0;
+            }
+        }
+
+        @keyframes confettiFallSparkle {
+            0% {
+                transform: translateY(-20px) scale(0) rotate(0deg);
+                opacity: 0;
+                box-shadow: 0 0 0px currentColor;
+            }
+            20% {
+                transform: translateY(20vh) scale(3) rotate(180deg);
+                opacity: 1;
+                box-shadow: 0 0 30px currentColor;
+            }
+            50% {
+                transform: translateY(50vh) scale(1) rotate(360deg);
+                opacity: 1;
+                box-shadow: 0 0 40px currentColor;
+            }
+            80% {
+                transform: translateY(80vh) scale(2) rotate(540deg);
+                opacity: 0.8;
+                box-shadow: 0 0 20px currentColor;
+            }
+            100% {
+                transform: translateY(110vh) scale(0) rotate(720deg);
+                opacity: 0;
+                box-shadow: 0 0 0px currentColor;
+            }
+        }
+
+        /* Efek "WOW" di tengah layar */
+        .confetti-wow {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 5rem;
+            font-weight: 900;
+            color: #FFD700;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3);
+            z-index: 100000;
+            pointer-events: none;
+            animation: wowPop 1.5s ease forwards;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .confetti-wow.absensi {
+            color: #1A73E8;
+            text-shadow: 0 0 40px rgba(26, 115, 232, 0.6), 0 0 80px rgba(26, 115, 232, 0.3);
+        }
+
+        @keyframes wowPop {
+            0% {
+                transform: translate(-50%, -50%) scale(0) rotate(-20deg);
+                opacity: 0;
+            }
+            30% {
+                transform: translate(-50%, -50%) scale(1.5) rotate(5deg);
+                opacity: 1;
+            }
+            60% {
+                transform: translate(-50%, -50%) scale(1) rotate(-3deg);
+                opacity: 1;
+            }
+            80% {
+                transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        /* ===== PIN MODAL ===== */
         .pin-modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(4px);
-            z-index: 99999; display: none; /* Awalnya disembunyikan */
+            z-index: 99999; display: none;
             justify-content: center; align-items: center;
         }
         .pin-modal-box {
@@ -55,11 +221,15 @@
         .pin-input-group input:focus { border-color: #1A73E8; box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); transform: scale(1.05); }
         .pin-error { margin-top: 10px; color: #dc3545; font-weight: 600; min-height: 24px; font-size: 0.9rem; }
 
-        /* --- LOBBY / MENU UTAMA --- */
+        /* ===== LOBBY ===== */
         #lobbyScreen {
             width: 100%; 
             text-align: center; 
             padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
         #lobbyScreen .lobby-container {
             max-width: 900px;
@@ -116,8 +286,6 @@
         
         .lobby-card h4 { font-weight: 700; font-size: 1.6rem; margin-bottom: 8px; }
         .lobby-card p { color: #5f6368; font-size: 0.95rem; margin: 0; line-height: 1.5; }
-
-        /* --- TULISAN "By DEAS" DI LOBBY --- */
         .lobby-footer {
             margin-top: 35px;
             font-size: 0.85rem;
@@ -125,7 +293,7 @@
             letter-spacing: 1px;
         }
 
-        /* --- APLIKASI UTAMA --- */
+        /* ===== MAIN APP ===== */
         #mainApp { display: none; width: 100%; }
 
         .app-header { background: linear-gradient(135deg, #1A73E8 0%, #1557b0 100%); color: white; padding: 20px 0 16px; box-shadow: 0 2px 12px rgba(26, 115, 232, 0.3); margin-bottom: 24px; }
@@ -137,7 +305,7 @@
         .card-custom { background: #ffffff; border: none; border-radius: 16px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); transition: box-shadow 0.2s ease; }
         .card-custom:hover { box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); }
 
-        /* --- STYLE UNTUK MENU ABSENSI SAJA --- */
+        /* ===== STUDENT ITEM ===== */
         .student-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 12px; background: white; border: 1px solid #e8eaed; transition: all 0.25s ease; margin-bottom: 8px; flex-wrap: wrap; gap: 8px; }
         .student-item .info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 180px; }
         .student-item .info .name { font-weight: 600; font-size: 0.95rem; color: #202124; }
@@ -154,14 +322,12 @@
         .student-item.status-sakit { background: #FFE5CC; border-color: #fd7e14; }
         .student-item.status-kabur { background: #F8D7DA; border-color: #dc3545; }
 
-        /* --- STYLE UNTUK MENU KAS SAJA --- */
+        /* ===== KAS ITEM ===== */
         .kas-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border-radius: 12px; background: white; border: 1px solid #e8eaed; transition: all 0.25s ease; margin-bottom: 8px; flex-wrap: wrap; gap: 10px; }
         .kas-item .info { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 160px; }
         .kas-item .info .name { font-weight: 600; font-size: 0.95rem; color: #202124; }
         .kas-item .info .class-badge { background: #e8f0fe; color: #1A73E8; font-weight: 600; font-size: 0.75rem; padding: 2px 12px; border-radius: 20px; white-space: nowrap; }
         .kas-item.status-bayar { background: #D4EDDA; border-color: #28a745; }
-        
-        /* Tampilan "Belum Bayar" */
         .kas-item.status-belum-bayar { background: #FFF3CD; border-color: #ffc107; }
         .badge-belum-bayar {
             background: #ffc107;
@@ -187,34 +353,13 @@
         .search-box { border-radius: 30px; padding: 10px 18px; border: 2px solid #dadce0; font-size: 0.95rem; transition: all 0.2s; background: white; }
         .search-box:focus { border-color: #1A73E8; box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2); outline: none; }
 
-        #toastContainer { position: fixed; top: 20px; right: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 10px; max-width: 380px; width: 100%; }
+        /* ===== TOAST ===== */
+        #toastContainer { position: fixed; top: 20px; right: 20px; z-index: 99998; display: flex; flex-direction: column; gap: 10px; max-width: 380px; width: 100%; }
         .toast-custom { background: white; border-radius: 12px; padding: 14px 20px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); border-left: 6px solid #28a745; display: flex; align-items: center; gap: 12px; animation: slideInRight 0.35s ease; font-weight: 500; font-size: 0.9rem; }
         .toast-custom.toast-error { border-left-color: #dc3545; }
         .toast-custom i { font-size: 1.3rem; }
         .toast-custom .toast-close { margin-left: auto; cursor: pointer; font-size: 1.2rem; color: #999; background: none; border: none; padding: 0 4px; }
         @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            .student-item, .kas-item { flex-direction: column; align-items: stretch; gap: 10px; }
-            .student-item .info, .kas-item .info { justify-content: space-between; width: 100%; }
-            .status-group, .kas-nominal-group { justify-content: center; width: 100%; }
-            .status-group .btn-status, .btn-kas-nominal { flex: 1; text-align: center; min-width: 40px; font-size: 0.75rem; padding: 4px 8px; }
-            .app-header h1 { font-size: 1.3rem; }
-            #toastContainer { max-width: 90%; right: 5%; top: 10px; }
-            .pin-input-group input { width: 45px; height: 55px; font-size: 1.5rem; }
-            .kas-khusus-wrapper input { width: 70px; }
-            #lobbyScreen .lobby-container { padding: 40px 20px; }
-            #lobbyScreen h1 { font-size: 2rem; }
-            .lobby-card { padding: 30px 20px; min-width: 150px; max-width: 100%; width: 100%; }
-            .lobby-card i { font-size: 3rem; }
-            .lobby-grid { flex-direction: column; align-items: center; width: 100%; }
-        }
-        @media (max-width: 480px) {
-            .student-item .info .name, .kas-item .info .name { font-size: 0.85rem; }
-            .stats-bar { font-size: 0.8rem; flex-direction: column; gap: 4px; text-align: center; }
-            body { padding: 20px 10px; }
-        }
 
         .loading-spinner { display: none; width: 20px; height: 20px; border: 3px solid #e0e0e0; border-top: 3px solid #1A73E8; border-radius: 50%; animation: spin 0.7s linear infinite; margin: 0 auto; }
         @keyframes spin { to { transform: rotate(360deg); } }
@@ -235,7 +380,6 @@
         .connection-status.offline { background: #F8D7DA; color: #721c24; }
         .connection-status.checking { background: #FFF3CD; color: #856404; }
 
-        /* --- STYLE UNTUK TOMBOL LINK SPREADSHEET --- */
         .btn-spreadsheet-link {
             display: inline-flex;
             align-items: center;
@@ -259,13 +403,35 @@
         .btn-spreadsheet-link i {
             font-size: 1rem;
         }
+
+        @media (max-width: 768px) {
+            .student-item, .kas-item { flex-direction: column; align-items: stretch; gap: 10px; }
+            .student-item .info, .kas-item .info { justify-content: space-between; width: 100%; }
+            .status-group, .kas-nominal-group { justify-content: center; width: 100%; }
+            .status-group .btn-status, .btn-kas-nominal { flex: 1; text-align: center; min-width: 40px; font-size: 0.75rem; padding: 4px 8px; }
+            .app-header h1 { font-size: 1.3rem; }
+            #toastContainer { max-width: 90%; right: 5%; top: 10px; }
+            .pin-input-group input { width: 45px; height: 55px; font-size: 1.5rem; }
+            .kas-khusus-wrapper input { width: 70px; }
+            #lobbyScreen .lobby-container { padding: 40px 20px; }
+            #lobbyScreen h1 { font-size: 2rem; }
+            .lobby-card { padding: 30px 20px; min-width: 150px; max-width: 100%; width: 100%; }
+            .lobby-card i { font-size: 3rem; }
+            .lobby-grid { flex-direction: column; align-items: center; width: 100%; }
+        }
+        @media (max-width: 480px) {
+            .student-item .info .name, .kas-item .info .name { font-size: 0.85rem; }
+            .stats-bar { font-size: 0.8rem; flex-direction: column; gap: 4px; text-align: center; }
+            body { padding: 20px 10px; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- =========================================================== -->
-    <!--  LAYAR INPUT PIN (MODAL)                                    -->
-    <!-- =========================================================== -->
+    <!-- ===== CONFETI CONTAINER ===== -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- ===== PIN MODAL ===== -->
     <div class="pin-modal-overlay" id="pinModal">
         <div class="pin-modal-box">
             <button class="close-pin-btn" id="closePinModal"><i class="fas fa-times"></i></button>
@@ -281,9 +447,7 @@
         </div>
     </div>
 
-    <!-- =========================================================== -->
-    <!--  LOBBY / MENU UTAMA                                         -->
-    <!-- =========================================================== -->
+    <!-- ===== LOBBY ===== -->
     <div id="lobbyScreen">
         <div class="lobby-container">
             <h1><i class="fas fa-laptop-code me-2"></i>IT Club Manager</h1>
@@ -300,16 +464,13 @@
                     <p>Mengelola uang kas siswa</p>
                 </div>
             </div>
-            <!-- TULISAN BY DEAS -->
             <div class="lobby-footer">
                 <i class="fas fa-code me-1"></i> By DEAS
             </div>
         </div>
     </div>
 
-    <!-- =========================================================== -->
-    <!--  APLIKASI UTAMA                                              -->
-    <!-- =========================================================== -->
+    <!-- ===== MAIN APP ===== -->
     <div id="mainApp">
         <header class="app-header">
             <div class="container">
@@ -334,91 +495,67 @@
         </header>
 
         <div class="container">
-            <!-- 2. TEMPAT UNTUK MENU ABSENSI (AKAN DIISI OLEH JS) -->
+            <!-- MENU ABSENSI -->
             <div id="menuAbsensiWrapper" style="display: none;">
-                <!-- LINK SPREADSHEET ABSENSI -->
                 <div class="text-center mb-3">
                     <a href="https://docs.google.com/spreadsheets/d/1gkIFPH_wZtFEfxr0oVflvvTANC6881HENk1NduwY3po/edit?usp=sharing" target="_blank" class="btn-spreadsheet-link">
                         <i class="fas fa-external-link-alt"></i> Lihat Spreadsheet Absensi
                     </a>
                 </div>
-                <ul class="nav nav-pills justify-content-center gap-2 mb-3" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#contentAbsensi" type="button" role="tab">
-                            <i class="fas fa-clipboard-list"></i> Absensi
-                        </button>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="contentAbsensi" role="tabpanel">
-                        <div class="card card-custom p-3 p-md-4">
-                            <div class="row g-3 align-items-end mb-3">
-                                <div class="col-md-5">
-                                    <label class="form-label"><i class="far fa-calendar-alt me-1"></i> Tanggal</label>
-                                    <input type="date" class="form-control" id="absensiDate" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label"><i class="fas fa-search me-1"></i> Cari Siswa</label>
-                                    <input type="text" class="form-control search-box" id="searchAbsensi" placeholder="Ketik nama..." />
-                                </div>
-                                <div class="col-md-3 d-flex gap-2 justify-content-md-end">
-                                    <button class="btn btn-primary-custom" id="btnSaveAbsensi"><i class="fas fa-save me-1"></i> Simpan Semua</button>
-                                    <button class="btn btn-outline-secondary btn-outline-secondary-custom" id="btnResetAbsensi"><i class="fas fa-undo-alt"></i></button>
-                                </div>
-                            </div>
-                            <div class="stats-bar mb-3">
-                                <span><i class="fas fa-users me-1"></i> Total: <span class="stat-number" id="totalSiswa">0</span> siswa</span>
-                                <span><i class="fas fa-check-circle me-1" style="color:#28a745;"></i> Sudah absen: <span class="stat-number" id="sudahAbsen">0</span> siswa</span>
-                                <span><i class="fas fa-clock me-1" style="color:#6c757d;"></i> Belum: <span class="stat-number" id="belumAbsen">0</span> siswa</span>
-                            </div>
-                            <div id="studentListContainer"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Memuat data siswa...</p></div></div>
-                            <div class="text-center mt-3"><div class="loading-spinner" id="spinnerAbsensi"></div></div>
+                <div class="card card-custom p-3 p-md-4">
+                    <div class="row g-3 align-items-end mb-3">
+                        <div class="col-md-5">
+                            <label class="form-label"><i class="far fa-calendar-alt me-1"></i> Tanggal</label>
+                            <input type="date" class="form-control" id="absensiDate" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label"><i class="fas fa-search me-1"></i> Cari Siswa</label>
+                            <input type="text" class="form-control search-box" id="searchAbsensi" placeholder="Ketik nama..." />
+                        </div>
+                        <div class="col-md-3 d-flex gap-2 justify-content-md-end">
+                            <button class="btn btn-primary-custom" id="btnSaveAbsensi"><i class="fas fa-save me-1"></i> Simpan Semua</button>
+                            <button class="btn btn-outline-secondary btn-outline-secondary-custom" id="btnResetAbsensi"><i class="fas fa-undo-alt"></i></button>
                         </div>
                     </div>
+                    <div class="stats-bar mb-3">
+                        <span><i class="fas fa-users me-1"></i> Total: <span class="stat-number" id="totalSiswa">0</span> siswa</span>
+                        <span><i class="fas fa-check-circle me-1" style="color:#28a745;"></i> Sudah absen: <span class="stat-number" id="sudahAbsen">0</span> siswa</span>
+                        <span><i class="fas fa-clock me-1" style="color:#6c757d;"></i> Belum: <span class="stat-number" id="belumAbsen">0</span> siswa</span>
+                    </div>
+                    <div id="studentListContainer"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Memuat data siswa...</p></div></div>
+                    <div class="text-center mt-3"><div class="loading-spinner" id="spinnerAbsensi"></div></div>
                 </div>
             </div>
 
-            <!-- 3. TEMPAT UNTUK MENU KAS (AKAN DIISI OLEH JS) -->
+            <!-- MENU KAS -->
             <div id="menuKasWrapper" style="display: none;">
-                <!-- LINK SPREADSHEET KAS -->
                 <div class="text-center mb-3">
                     <a href="https://docs.google.com/spreadsheets/d/1Ym3N9HdsgmPcSApW5giCSzJ6-vebpXx4c8lqMsVQH_I/edit?usp=sharing" target="_blank" class="btn-spreadsheet-link">
                         <i class="fas fa-external-link-alt"></i> Lihat Spreadsheet Kas
                     </a>
                 </div>
-                <ul class="nav nav-pills justify-content-center gap-2 mb-3" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#contentKas" type="button" role="tab">
-                            <i class="fas fa-money-bill-wave"></i> Uang Kas
-                        </button>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane fade show active" id="contentKas" role="tabpanel">
-                        <div class="card card-custom p-3 p-md-4">
-                            <div class="row g-3 align-items-end mb-3">
-                                <div class="col-md-5">
-                                    <label class="form-label"><i class="far fa-calendar-alt me-1"></i> Tanggal</label>
-                                    <input type="date" class="form-control" id="kasDate" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label"><i class="fas fa-search me-1"></i> Cari Siswa</label>
-                                    <input type="text" class="form-control search-box" id="searchKas" placeholder="Ketik nama..." />
-                                </div>
-                                <div class="col-md-3 d-flex gap-2 justify-content-md-end">
-                                    <button class="btn btn-primary-custom" id="btnSaveKas"><i class="fas fa-save me-1"></i> Simpan Semua Kas</button>
-                                    <button class="btn btn-outline-secondary btn-outline-secondary-custom" id="btnResetKas"><i class="fas fa-undo-alt"></i></button>
-                                </div>
-                            </div>
-                            <div class="stats-bar mb-3">
-                                <span><i class="fas fa-users me-1"></i> Total: <span class="stat-number" id="totalKasSiswa">0</span> siswa</span>
-                                <span><i class="fas fa-check-circle me-1" style="color:#28a745;"></i> Sudah bayar: <span class="stat-number" id="sudahBayar">0</span> siswa</span>
-                                <span><i class="fas fa-clock me-1" style="color:#6c757d;"></i> Belum: <span class="stat-number" id="belumBayar">0</span> siswa</span>
-                            </div>
-                            <div id="kasListContainer"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Memuat data siswa...</p></div></div>
-                            <div class="text-center mt-3"><div class="loading-spinner" id="spinnerKas"></div></div>
+                <div class="card card-custom p-3 p-md-4">
+                    <div class="row g-3 align-items-end mb-3">
+                        <div class="col-md-5">
+                            <label class="form-label"><i class="far fa-calendar-alt me-1"></i> Tanggal</label>
+                            <input type="date" class="form-control" id="kasDate" />
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label"><i class="fas fa-search me-1"></i> Cari Siswa</label>
+                            <input type="text" class="form-control search-box" id="searchKas" placeholder="Ketik nama..." />
+                        </div>
+                        <div class="col-md-3 d-flex gap-2 justify-content-md-end">
+                            <button class="btn btn-primary-custom" id="btnSaveKas"><i class="fas fa-save me-1"></i> Simpan Semua Kas</button>
+                            <button class="btn btn-outline-secondary btn-outline-secondary-custom" id="btnResetKas"><i class="fas fa-undo-alt"></i></button>
                         </div>
                     </div>
+                    <div class="stats-bar mb-3">
+                        <span><i class="fas fa-users me-1"></i> Total: <span class="stat-number" id="totalKasSiswa">0</span> siswa</span>
+                        <span><i class="fas fa-check-circle me-1" style="color:#28a745;"></i> Sudah bayar: <span class="stat-number" id="sudahBayar">0</span> siswa</span>
+                        <span><i class="fas fa-clock me-1" style="color:#6c757d;"></i> Belum: <span class="stat-number" id="belumBayar">0</span> siswa</span>
+                    </div>
+                    <div id="kasListContainer"><div class="empty-state"><i class="fas fa-spinner fa-spin"></i><p>Memuat data siswa...</p></div></div>
+                    <div class="text-center mt-3"><div class="loading-spinner" id="spinnerKas"></div></div>
                 </div>
             </div>
         </div>
@@ -429,14 +566,116 @@
 
     <script>
         // ================================================================
-        //  LOGIKA PIN & LOBBY
+        //  CONFETI ANIMATION YANG LEBIH MERIAH
         // ================================================================
-        
-        // 🔒 PIN RAHASIA
+        function showConfetti(type = 'absensi') {
+            const container = document.getElementById('confettiContainer');
+            container.innerHTML = '';
+            
+            // Warna untuk konfeti
+            const colors = type === 'absensi' 
+                ? ['#1A73E8', '#34A853', '#EA4335', '#FBBC05', '#4285F4', '#0F9D58', '#FF6D01', '#46BDC6', '#9C27B0', '#FF5722']
+                : ['#34A853', '#1A73E8', '#F9AB00', '#EA4335', '#0F9D58', '#FFD700', '#FF6B6B', '#4ECDC4', '#FF8F00', '#00BCD4'];
+            
+            // Emoji untuk masing-masing tipe
+            const emojis = type === 'absensi'
+                ? ['⭐', '🌟', '✨', '🎯', '📋', '✅', '🏆', '🎉', '💫', '🌈']
+                : ['💰', '💵', '💎', '🪙', '🏦', '💲', '🎉', '✨', '💸', '🏅'];
+            
+            // Jumlah partikel lebih banyak
+            const totalPieces = 120;
+            
+            // 1. CONFETI WARNA-WARNI (60%)
+            const colorCount = Math.floor(totalPieces * 0.6);
+            for (let i = 0; i < colorCount; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.background = color;
+                piece.style.width = (4 + Math.random() * 14) + 'px';
+                piece.style.height = (4 + Math.random() * 14) + 'px';
+                piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.top = '-20px';
+                piece.style.animationDuration = (2 + Math.random() * 4) + 's';
+                piece.style.animationDelay = (Math.random() * 2) + 's';
+                piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+                container.appendChild(piece);
+            }
+            
+            // 2. EMOJI (20%)
+            const emojiCount = Math.floor(totalPieces * 0.2);
+            for (let i = 0; i < emojiCount; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece uang';
+                piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                piece.style.fontSize = (18 + Math.random() * 30) + 'px';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.top = '-30px';
+                piece.style.animationDuration = (3 + Math.random() * 4) + 's';
+                piece.style.animationDelay = (Math.random() * 2.5) + 's';
+                container.appendChild(piece);
+            }
+            
+            // 3. BINTANG BERKILAU (10%)
+            const starCount = Math.floor(totalPieces * 0.1);
+            for (let i = 0; i < starCount; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece star';
+                piece.textContent = ['✦', '✧', '⭐', '🌟', '✨'][Math.floor(Math.random() * 5)];
+                piece.style.fontSize = (14 + Math.random() * 22) + 'px';
+                piece.style.color = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.top = '-20px';
+                piece.style.animationDuration = (2.5 + Math.random() * 3.5) + 's';
+                piece.style.animationDelay = (Math.random() * 2.5) + 's';
+                container.appendChild(piece);
+            }
+            
+            // 4. PARTIKEL BERKILAUAN (10%)
+            const sparkleCount = Math.floor(totalPieces * 0.1);
+            for (let i = 0; i < sparkleCount; i++) {
+                const piece = document.createElement('div');
+                piece.className = 'confetti-piece sparkle';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                piece.style.background = color;
+                piece.style.color = color;
+                piece.style.width = (3 + Math.random() * 8) + 'px';
+                piece.style.height = (3 + Math.random() * 8) + 'px';
+                piece.style.left = Math.random() * 100 + '%';
+                piece.style.top = '-10px';
+                piece.style.animationDuration = (2 + Math.random() * 3) + 's';
+                piece.style.animationDelay = (Math.random() * 2) + 's';
+                container.appendChild(piece);
+            }
+            
+            // 5. EFEK "WOW" DI TENGAH LAYAR
+            const wow = document.createElement('div');
+            const messages = type === 'absensi' 
+                ? ['🎉 ABSENSI TERSIMPAN!', '✨ HEBAT!', '📋 BERHASIL!', '✅ MANTAP!']
+                : ['💰 UANG TERSIMPAN!', '💵 WOW!', '🏦 BERHASIL!', '💲 KEREN!'];
+            wow.className = `confetti-wow ${type}`;
+            wow.textContent = messages[Math.floor(Math.random() * messages.length)];
+            document.body.appendChild(wow);
+            
+            // Hapus "WOW" setelah 3 detik
+            setTimeout(() => {
+                if (wow.parentNode) wow.remove();
+            }, 3000);
+            
+            // Hapus semua confetti setelah 6 detik
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 6000);
+        }
+
+        // ================================================================
+        //  PIN & LOBBY
+        // ================================================================
         const PIN_ABSENSI = "0909";
         const PIN_KAS = "1109";
 
-        let currentTarget = ''; 
+        let currentTarget = '';
 
         const pinModal = document.getElementById('pinModal');
         const pinInputs = document.querySelectorAll('.pin-box');
@@ -450,7 +689,6 @@
         const btnBackLobby = document.getElementById('btnBackLobby');
         const appSubtitle = document.getElementById('appSubtitle');
 
-        // Wrapper Menu
         const menuAbsensiWrapper = document.getElementById('menuAbsensiWrapper');
         const menuKasWrapper = document.getElementById('menuKasWrapper');
 
@@ -461,8 +699,10 @@
             
             if (target === 'absensi') {
                 pinModalTitle.textContent = '🔒 Masuk ke Absensi';
+                pinModalDesc.textContent = 'Masukkan kode PIN untuk mengelola absensi.';
             } else {
                 pinModalTitle.textContent = '🔒 Masuk ke Kas / Bendahara';
+                pinModalDesc.textContent = 'Masukkan kode PIN untuk mengelola uang kas.';
             }
 
             pinModal.style.display = 'flex';
@@ -505,14 +745,14 @@
                     
                     if (currentTarget === 'absensi') {
                         appSubtitle.textContent = 'Ekstrakurikuler IT · Mode Absensi';
-                        menuAbsensiWrapper.style.display = 'block'; // Tampilkan Menu Absensi
-                        menuKasWrapper.style.display = 'none';      // Sembunyikan Menu Kas
-                        initAbsensi(); // Hanya jalankan logic Absensi
+                        menuAbsensiWrapper.style.display = 'block';
+                        menuKasWrapper.style.display = 'none';
+                        initAbsensi();
                     } else {
                         appSubtitle.textContent = 'Ekstrakurikuler IT · Mode Kas / Bendahara';
-                        menuAbsensiWrapper.style.display = 'none'; // Sembunyikan Menu Absensi
-                        menuKasWrapper.style.display = 'block';     // Tampilkan Menu Kas
-                        initKas(); // Hanya jalankan logic Kas
+                        menuAbsensiWrapper.style.display = 'none';
+                        menuKasWrapper.style.display = 'block';
+                        initKas();
                     }
                 } else {
                     pinError.textContent = '❌ PIN Salah! Silakan coba lagi.';
@@ -533,7 +773,7 @@
         });
 
         // ================================================================
-        //  DATA SISWA BARU (Sudah Diurutkan Berdasarkan Abjad A-Z)
+        //  DATA SISWA (44 Siswa)
         // ================================================================
         const STUDENTS_DATA = [
             { nama: "Abdul Aziz Nurrohman", kelas: "X-1" },
@@ -583,21 +823,24 @@
         ];
 
         // ================================================================
-        //  KONFIGURASI URL 
+        //  KONFIGURASI URL
         // ================================================================
         const CONFIG = {
-            API_ABSENSI: 'https://script.google.com/macros/s/AKfycbw1Dm8GOg-C3Ts2ubI5DzmoOGA0KOm8YdtpZJCVNfLTMRxdRM1_R4MqqVPhQq74tI0mHA/exec',
-            API_KAS: 'https://script.google.com/macros/s/AKfycbzeTJXa_zA1jOOgsakzVJCwl6iuA4Vgz5rFrgTdJ--2Dzqe17akcqHlQRkrxvCXV9YF/exec'
+            API_ABSENSI: 'https://script.google.com/macros/s/AKfycbxUQHIEUMKIh18GiZXpFYmnGQU1qS_ckiwVCYJpVy8TyxpP0Z94i0zP2eANv-8h2vgQyQ/exec',
+            API_KAS: 'https://script.google.com/macros/s/AKfycbx--YOlWG9T8tHMtnEGh3L3hIwa7g13ygtFy_AocP0dzxId6PpzvN3N6bMlvTYsCEW2/exec'
         };
 
         // ================================================================
-        //  STATE & DOM (GLOBAL)
+        //  STATE
         // ================================================================
         let studentStatus = {};
         let filteredStudents = [...STUDENTS_DATA];
-        let kasStatus = {}; 
+        let kasStatus = {};
         let filteredKasStudents = [...STUDENTS_DATA];
 
+        // ================================================================
+        //  DOM REFS
+        // ================================================================
         const absensiDate = document.getElementById('absensiDate');
         const searchAbsensi = document.getElementById('searchAbsensi');
         const studentListContainer = document.getElementById('studentListContainer');
@@ -621,13 +864,20 @@
         const clockTime = document.getElementById('clockTime');
         const connStatus = document.getElementById('connStatus');
 
+        // ================================================================
+        //  TOAST, DATE, CLOCK
+        // ================================================================
         function showToast(message, type = 'success') {
             const container = document.getElementById('toastContainer');
             const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
             const color = type === 'success' ? '#28a745' : '#dc3545';
             const toast = document.createElement('div');
             toast.className = `toast-custom ${type === 'success' ? '' : 'toast-error'}`;
-            toast.innerHTML = `<i class="fas ${icon}" style="color:${color};"></i><span>${message}</span><button class="toast-close"><i class="fas fa-times"></i></button>`;
+            toast.innerHTML = `
+                <i class="fas ${icon}" style="color:${color};"></i>
+                <span>${message}</span>
+                <button class="toast-close"><i class="fas fa-times"></i></button>
+            `;
             container.appendChild(toast);
             setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
             toast.querySelector('.toast-close').addEventListener('click', () => { toast.remove(); });
@@ -643,10 +893,28 @@
             const now = new Date();
             clockTime.textContent = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
         }
-        setInterval(updateClock, 10000); updateClock();
+        setInterval(updateClock, 10000);
+        updateClock();
 
         // ================================================================
-        //  RENDER ABSENSI (Fungsi Ini hanya dijalankan jika masuk Absensi)
+        //  CEK KONEKSI
+        // ================================================================
+        async function checkConnection() {
+            connStatus.className = 'connection-status checking';
+            connStatus.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Cek...';
+            try {
+                await fetch(CONFIG.API_ABSENSI, { method: 'GET', mode: 'no-cors' });
+                connStatus.className = 'connection-status online';
+                connStatus.innerHTML = '<i class="fas fa-check-circle"></i> Terhubung';
+            } catch (error) {
+                connStatus.className = 'connection-status offline';
+                connStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Offline';
+                showToast('⚠️ Tidak dapat terhubung ke Google Sheets.', 'error');
+            }
+        }
+
+        // ================================================================
+        //  RENDER ABSENSI
         // ================================================================
         function renderStudents() {
             const searchTerm = searchAbsensi.value.toLowerCase().trim();
@@ -654,7 +922,8 @@
             filteredStudents.forEach(s => { if (!(s.nama in studentStatus)) studentStatus[s.nama] = ''; });
             if (filteredStudents.length === 0) {
                 studentListContainer.innerHTML = `<div class="empty-state"><i class="fas fa-search"></i><p>Siswa tidak ditemukan</p></div>`;
-                updateStats(); return;
+                updateStats();
+                return;
             }
             let html = '';
             filteredStudents.forEach(s => {
@@ -667,7 +936,15 @@
                     const emoji = st === 'Masuk' ? '✅' : st === 'Izin' ? '📝' : st === 'Sakit' ? '🤒' : '🏃';
                     btns += `<button class="btn-status ${active}" data-student="${s.nama}" data-status="${st}">${emoji} ${st}</button>`;
                 });
-                html += `<div class="student-item ${statusClass}" data-name="${s.nama}"><div class="info"><span class="name">${s.nama}</span><span class="class-badge">${s.kelas || '-'}</span></div><div class="status-group">${btns}</div></div>`;
+                html += `
+                    <div class="student-item ${statusClass}" data-name="${s.nama}">
+                        <div class="info">
+                            <span class="name">${s.nama}</span>
+                            <span class="class-badge">${s.kelas || '-'}</span>
+                        </div>
+                        <div class="status-group">${btns}</div>
+                    </div>
+                `;
             });
             studentListContainer.innerHTML = html;
             document.querySelectorAll('.btn-status').forEach(btn => {
@@ -700,7 +977,7 @@
         }
 
         // ================================================================
-        //  RENDER KAS (Fungsi Ini hanya dijalankan jika masuk Kas)
+        //  RENDER KAS
         // ================================================================
         function renderKas() {
             const searchTerm = searchKas.value.toLowerCase().trim();
@@ -708,7 +985,8 @@
             filteredKasStudents.forEach(s => { if (!(s.nama in kasStatus)) kasStatus[s.nama] = 0; });
             if (filteredKasStudents.length === 0) {
                 kasListContainer.innerHTML = `<div class="empty-state"><i class="fas fa-search"></i><p>Siswa tidak ditemukan</p></div>`;
-                updateKasStats(); return;
+                updateKasStats();
+                return;
             }
             let html = '';
             filteredKasStudents.forEach(s => {
@@ -732,41 +1010,47 @@
                 const isKhusus = ![2000, 3000, 4000, 5000, 6000].includes(nominal) && nominal > 0;
                 const displayKhusus = isKhusus ? 'flex' : 'none';
                 
-                html += `<div class="kas-item ${statusClass}" data-name="${s.nama}">
-                            <div class="info">
-                                <span class="name">${s.nama}</span>
-                                <span class="class-badge">${s.kelas || '-'}</span>
-                                ${statusBadgeHtml}
+                html += `
+                    <div class="kas-item ${statusClass}" data-name="${s.nama}">
+                        <div class="info">
+                            <span class="name">${s.nama}</span>
+                            <span class="class-badge">${s.kelas || '-'}</span>
+                            ${statusBadgeHtml}
+                        </div>
+                        <div class="kas-nominal-group">
+                            ${btns}
+                            <button class="btn-kas-nominal btn-outline-primary btn-kas-khusus-trigger" data-student="${s.nama}">💲 Khusus</button>
+                            <div class="kas-khusus-wrapper" style="display: ${displayKhusus};" data-student="${s.nama}">
+                                <input type="number" class="kas-khusus-input" placeholder="Rp" min="1" value="${isKhusus ? nominal : ''}" />
                             </div>
-                            <div class="kas-nominal-group">
-                                ${btns}
-                                <button class="btn-kas-nominal btn-outline-primary btn-kas-khusus-trigger" data-student="${s.nama}">💲 Khusus</button>
-                                <div class="kas-khusus-wrapper" style="display: ${displayKhusus};" data-student="${s.nama}">
-                                    <input type="number" class="kas-khusus-input" placeholder="Rp" min="1" value="${isKhusus ? nominal : ''}" />
-                                </div>
-                            </div>
-                        </div>`;
+                        </div>
+                    </div>
+                `;
             });
             kasListContainer.innerHTML = html;
+
             document.querySelectorAll('.btn-kas-nominal[data-value]').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     setKasStatus(this.dataset.student, parseInt(this.dataset.value));
                 });
             });
+
             document.querySelectorAll('.btn-kas-khusus-trigger').forEach(btn => {
                 btn.addEventListener('click', function(e) {
                     e.stopPropagation();
                     const nama = this.dataset.student;
                     kasStatus[nama] = 0;
                     renderKas();
-                    const input = document.querySelector(`.kas-khusus-wrapper[data-student="${nama}"] input`);
-                    if(input) {
-                        document.querySelector(`.kas-khusus-wrapper[data-student="${nama}"]`).style.display = 'flex';
-                        input.focus();
+                    const wrapper = document.querySelector(`.kas-khusus-wrapper[data-student="${nama}"]`);
+                    if(wrapper) {
+                        wrapper.style.display = 'flex';
+                        const input = wrapper.querySelector('input');
+                        if(input) input.focus();
                     }
                 });
             });
+
             document.querySelectorAll('.kas-khusus-input').forEach(input => {
                 input.addEventListener('input', function() {
                     const val = parseInt(this.value);
@@ -791,13 +1075,11 @@
                 if (val > 0) {
                     item.classList.add('status-bayar');
                     item.classList.remove('status-belum-bayar');
-                    // Hapus badge "Belum bayar" jika ada
                     const badge = item.querySelector('.badge-belum-bayar');
                     if(badge) badge.remove();
                 } else {
                     item.classList.add('status-belum-bayar');
                     item.classList.remove('status-bayar');
-                    // Tambahkan badge "Belum bayar" jika belum ada
                     if (!item.querySelector('.badge-belum-bayar')) {
                         const info = item.querySelector('.info');
                         const badge = document.createElement('span');
@@ -825,7 +1107,7 @@
         }
 
         // ================================================================
-        //  SAVE FUNCTIONS (DIUBAH BAGIAN KAS)
+        //  SAVE FUNCTIONS DENGAN CONFETI
         // ================================================================
         async function saveAbsensi() {
             const tanggal = absensiDate.value;
@@ -844,6 +1126,10 @@
                 let resultMessage = '✅ Data absensi berhasil disimpan!';
                 try { const result = await response.json(); if (result.message) resultMessage = result.message; } catch (e) {}
                 showToast(resultMessage, 'success');
+                
+                // 🎊 TAMPILKAN CONFETI ABSENSI
+                showConfetti('absensi');
+                
             } catch (error) {
                 showToast('❌ Gagal absensi: ' + error.message, 'error');
                 console.error(error);
@@ -857,7 +1143,6 @@
             const tanggal = kasDate.value;
             if (!tanggal) { showToast('Tanggal wajib diisi!', 'error'); return; }
             
-            // ➡️ DIUBAH: Ambil SEMUA siswa, bukan hanya yang bayar
             const allData = STUDENTS_DATA.map(s => {
                 const nominal = kasStatus[s.nama] || 0;
                 return {
@@ -867,10 +1152,8 @@
                 };
             });
 
-            // Cek apakah ada yang benar-benar bayar (hanya untuk konfirmasi)
             const dataBayarCount = STUDENTS_DATA.filter(s => kasStatus[s.nama] && kasStatus[s.nama] > 0).length;
             if (dataBayarCount === 0) {
-                // Jika tidak ada yang bayar sama sekali, beri peringatan tapi tetap kirim data "Belum bayar"
                 if (!confirm('Tidak ada siswa yang dipilih untuk membayar kas. Semua siswa akan tercatat "Belum bayar". Lanjutkan?')) return;
             } else {
                 if (!confirm(`Simpan data kas untuk ${STUDENTS_DATA.length} siswa (${dataBayarCount} siswa bayar)?`)) return;
@@ -881,11 +1164,15 @@
             try {
                 const formData = new FormData();
                 formData.append('tanggal', tanggal);
-                formData.append('data', JSON.stringify(allData)); // Kirim semua data
+                formData.append('data', JSON.stringify(allData));
                 const response = await fetch(CONFIG.API_KAS, { method: 'POST', body: formData });
                 let resultMessage = `✅ Data kas ${allData.length} siswa berhasil disimpan!`;
                 try { const result = await response.json(); if (result.message) resultMessage = result.message; } catch (e) {}
                 showToast(resultMessage, 'success');
+                
+                // 🎊💰 TAMPILKAN CONFETI KAS DENGAN UANG
+                showConfetti('kas');
+                
             } catch (error) {
                 showToast('❌ Gagal kas: ' + error.message, 'error');
                 console.error(error);
@@ -896,50 +1183,31 @@
         }
 
         // ================================================================
-        //  EVENT LISTENERS & INIT (DIPISAH)
+        //  EVENT LISTENERS
         // ================================================================
-        
-        // Event Listener Absensi
         searchAbsensi.addEventListener('input', renderStudents);
         btnResetAbsensi.addEventListener('click', resetAbsensi);
         btnSaveAbsensi.addEventListener('click', saveAbsensi);
 
-        // Event Listener Kas
         searchKas.addEventListener('input', renderKas);
         btnResetKas.addEventListener('click', resetKas);
         btnSaveKas.addEventListener('click', saveKas);
 
-        // Init Absensi
+        // ================================================================
+        //  INIT
+        // ================================================================
         function initAbsensi() {
             setDefaultDates();
             renderStudents();
-            // Cek koneksi cukup sekali saja saat aplikasi dibuka
             setTimeout(checkConnection, 1000);
-            console.log(`✅ Mode Absensi aktif.`);
+            console.log('✅ Mode Absensi aktif.');
         }
 
-        // Init Kas
         function initKas() {
             setDefaultDates();
             renderKas();
             setTimeout(checkConnection, 1000);
-            console.log(`✅ Mode Kas aktif.`);
-        }
-
-        // Fungsi Check Connection (Tetap global)
-        async function checkConnection() {
-            connStatus.className = 'connection-status checking';
-            connStatus.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Cek...';
-            try {
-                // Kita cek koneksi ke URL Absensi saja sebagai indikator utama
-                await fetch(CONFIG.API_ABSENSI, { method: 'GET', mode: 'no-cors' });
-                connStatus.className = 'connection-status online';
-                connStatus.innerHTML = '<i class="fas fa-check-circle"></i> Terhubung';
-            } catch (error) {
-                connStatus.className = 'connection-status offline';
-                connStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> Offline';
-                showToast('⚠️ Tidak dapat terhubung ke Google Sheets.', 'error');
-            }
+            console.log('✅ Mode Kas aktif.');
         }
     </script>
 </body>
