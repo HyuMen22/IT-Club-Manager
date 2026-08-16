@@ -147,13 +147,13 @@
             }
         }
 
-        /* Efek "WOW" di tengah layar */
+        /* Efek "WOW" di tengah layar - Responsive */
         .confetti-wow {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%) scale(0);
-            font-size: 5rem;
+            font-size: 4rem;
             font-weight: 900;
             color: #FFD700;
             text-shadow: 0 0 40px rgba(255, 215, 0, 0.6), 0 0 80px rgba(255, 215, 0, 0.3);
@@ -161,6 +161,9 @@
             pointer-events: none;
             animation: wowPop 1.5s ease forwards;
             font-family: 'Inter', sans-serif;
+            text-align: center;
+            padding: 20px;
+            white-space: nowrap;
         }
 
         .confetti-wow.absensi {
@@ -188,6 +191,51 @@
             100% {
                 transform: translate(-50%, -50%) scale(1) rotate(0deg);
                 opacity: 1;
+            }
+        }
+
+        /* ===== RESPONSIVE CONFETI ===== */
+        @media (max-width: 768px) {
+            .confetti-wow {
+                font-size: 2.2rem !important;
+                white-space: normal !important;
+                padding: 15px;
+                max-width: 90%;
+            }
+            .confetti-piece.uang {
+                font-size: 22px !important;
+            }
+            .confetti-piece.star {
+                font-size: 18px !important;
+            }
+            .confetti-piece {
+                width: 8px !important;
+                height: 8px !important;
+            }
+            .confetti-piece.sparkle {
+                width: 4px !important;
+                height: 4px !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .confetti-wow {
+                font-size: 1.6rem !important;
+                padding: 12px;
+            }
+            .confetti-piece.uang {
+                font-size: 18px !important;
+            }
+            .confetti-piece.star {
+                font-size: 14px !important;
+            }
+            .confetti-piece {
+                width: 6px !important;
+                height: 6px !important;
+            }
+            .confetti-piece.sparkle {
+                width: 3px !important;
+                height: 3px !important;
             }
         }
 
@@ -404,6 +452,7 @@
             font-size: 1rem;
         }
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 768px) {
             .student-item, .kas-item { flex-direction: column; align-items: stretch; gap: 10px; }
             .student-item .info, .kas-item .info { justify-content: space-between; width: 100%; }
@@ -566,11 +615,20 @@
 
     <script>
         // ================================================================
-        //  CONFETI ANIMATION YANG LEBIH MERIAH
+        //  CONFETI ANIMATION - RESPONSIVE & MERIAH
         // ================================================================
         function showConfetti(type = 'absensi') {
             const container = document.getElementById('confettiContainer');
             container.innerHTML = '';
+            
+            // Deteksi ukuran layar untuk menyesuaikan jumlah dan ukuran
+            const isMobile = window.innerWidth < 768;
+            const isSmallMobile = window.innerWidth < 480;
+            
+            // Sesuaikan jumlah partikel berdasarkan layar
+            let totalPieces = 120;
+            if (isSmallMobile) totalPieces = 60;
+            else if (isMobile) totalPieces = 85;
             
             // Warna untuk konfeti
             const colors = type === 'absensi' 
@@ -582,8 +640,11 @@
                 ? ['⭐', '🌟', '✨', '🎯', '📋', '✅', '🏆', '🎉', '💫', '🌈']
                 : ['💰', '💵', '💎', '🪙', '🏦', '💲', '🎉', '✨', '💸', '🏅'];
             
-            // Jumlah partikel lebih banyak
-            const totalPieces = 120;
+            // Ukuran partikel berdasarkan layar
+            const sizeMultiplier = isSmallMobile ? 0.6 : isMobile ? 0.8 : 1;
+            const emojiSize = isSmallMobile ? 16 : isMobile ? 20 : 30;
+            const starSize = isSmallMobile ? 12 : isMobile ? 16 : 24;
+            const sparkleSize = isSmallMobile ? 3 : isMobile ? 4 : 6;
             
             // 1. CONFETI WARNA-WARNI (60%)
             const colorCount = Math.floor(totalPieces * 0.6);
@@ -592,8 +653,10 @@
                 piece.className = 'confetti-piece';
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 piece.style.background = color;
-                piece.style.width = (4 + Math.random() * 14) + 'px';
-                piece.style.height = (4 + Math.random() * 14) + 'px';
+                const w = (4 + Math.random() * 14) * sizeMultiplier;
+                const h = (4 + Math.random() * 14) * sizeMultiplier;
+                piece.style.width = w + 'px';
+                piece.style.height = h + 'px';
                 piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
                 piece.style.left = Math.random() * 100 + '%';
                 piece.style.top = '-20px';
@@ -609,7 +672,8 @@
                 const piece = document.createElement('div');
                 piece.className = 'confetti-piece uang';
                 piece.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-                piece.style.fontSize = (18 + Math.random() * 30) + 'px';
+                const size = (emojiSize + Math.random() * 20) * sizeMultiplier;
+                piece.style.fontSize = size + 'px';
                 piece.style.left = Math.random() * 100 + '%';
                 piece.style.top = '-30px';
                 piece.style.animationDuration = (3 + Math.random() * 4) + 's';
@@ -623,7 +687,8 @@
                 const piece = document.createElement('div');
                 piece.className = 'confetti-piece star';
                 piece.textContent = ['✦', '✧', '⭐', '🌟', '✨'][Math.floor(Math.random() * 5)];
-                piece.style.fontSize = (14 + Math.random() * 22) + 'px';
+                const size = (starSize + Math.random() * 18) * sizeMultiplier;
+                piece.style.fontSize = size + 'px';
                 piece.style.color = colors[Math.floor(Math.random() * colors.length)];
                 piece.style.left = Math.random() * 100 + '%';
                 piece.style.top = '-20px';
@@ -640,8 +705,9 @@
                 const color = colors[Math.floor(Math.random() * colors.length)];
                 piece.style.background = color;
                 piece.style.color = color;
-                piece.style.width = (3 + Math.random() * 8) + 'px';
-                piece.style.height = (3 + Math.random() * 8) + 'px';
+                const size = (sparkleSize + Math.random() * 5) * sizeMultiplier;
+                piece.style.width = size + 'px';
+                piece.style.height = size + 'px';
                 piece.style.left = Math.random() * 100 + '%';
                 piece.style.top = '-10px';
                 piece.style.animationDuration = (2 + Math.random() * 3) + 's';
@@ -649,7 +715,7 @@
                 container.appendChild(piece);
             }
             
-            // 5. EFEK "WOW" DI TENGAH LAYAR
+            // 5. EFEK "WOW" DI TENGAH LAYAR (dengan ukuran responsif)
             const wow = document.createElement('div');
             const messages = type === 'absensi' 
                 ? ['🎉 ABSENSI TERSIMPAN!', '✨ HEBAT!', '📋 BERHASIL!', '✅ MANTAP!']
