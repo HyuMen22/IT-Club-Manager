@@ -1611,45 +1611,6 @@
 <body>
 
     <!-- ================================================================ -->
-    <!--  ELEMEN KEMERDEKAAN INDONESIA 17 AGUSTUS - LEBIH RAMAI         -->
-    <!-- ================================================================ -->
-
-    <!-- 1. Badge 17 Agustus -->
-    <div class="merdeka-badge">
-        <span class="flag-icon">🇮🇩</span>
-        <span>
-            <span class="text-red">17</span>
-            <span class="text-white">AGUSTUS</span>
-            <span class="text-red">1945</span>
-        </span>
-        <span class="flag-icon">🇮🇩</span>
-    </div>
-
-    <!-- 2. Bendera di 4 pojok -->
-    <div class="flag-corner top-left">🇮🇩</div>
-    <div class="flag-corner bottom-right">🇮🇩</div>
-    <div class="flag-corner top-right">🇮🇩</div>
-    <div class="flag-corner bottom-left">🇮🇩</div>
-
-    <!-- 3. Garuda Pancasila -->
-    <div class="garuda-mini g1">🦅</div>
-    <div class="garuda-mini g2">🦅</div>
-
-    <!-- 4. Confetti Merah Putih di background -->
-    <div class="red-white-confetti" id="rwConfetti"></div>
-
-    <!-- 5. Teks DIRGAHAYU INDONESIA -->
-    <div class="dirgahayu-text">
-        🇮🇩 <span>DIRGAHAYU</span> INDONESIA <span>🇮🇩</span>
-    </div>
-
-    <!-- 6. Bintang / Pita di pojok -->
-    <div class="star-decoration s1">⭐</div>
-    <div class="star-decoration s2">⭐</div>
-    <div class="star-decoration s3">⭐</div>
-    <div class="star-decoration s4">⭐</div>
-
-    <!-- ================================================================ -->
     <!--  ITECH TRANSITION                                                -->
     <!-- ================================================================ -->
     <div class="itech-transition" id="itechTransition">
@@ -1831,30 +1792,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // ================================================================
-        //  GENERATE CONFETI MERAH PUTIH
-        // ================================================================
-        function generateRedWhiteConfetti() {
-            const container = document.getElementById('rwConfetti');
-            if (!container) return;
-            
-            const isMobile = window.innerWidth < 768;
-            const isSmallMobile = window.innerWidth < 480;
-            
-            const count = isSmallMobile ? 25 : isMobile ? 40 : 60;
-            
-            for (let i = 0; i < count; i++) {
-                const piece = document.createElement('div');
-                piece.className = 'rw-piece ' + (Math.random() > 0.5 ? 'red' : 'white');
-                piece.style.left = Math.random() * 100 + '%';
-                piece.style.width = (4 + Math.random() * 8) + 'px';
-                piece.style.height = (4 + Math.random() * 8) + 'px';
-                piece.style.animationDuration = (8 + Math.random() * 10) + 's';
-                piece.style.animationDelay = (Math.random() * 5) + 's';
-                container.appendChild(piece);
-            }
-        }
-
+        
         // ================================================================
         //  SOUND EFFECTS
         // ================================================================
