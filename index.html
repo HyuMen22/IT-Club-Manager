@@ -2219,53 +2219,82 @@
         });
 
         // ================================================================
-        //  DATA SISWA
+        //  DATA SISWA (Diperbarui)
         // ================================================================
         const STUDENTS_DATA = [
-            { nama: "Abdul Aziz Nurrohman", kelas: "X-1" },
-            { nama: "Ahmad Fatir Syatori", kelas: "XI-10" },
-            { nama: "Aleya Ayu Meyditta Putri", kelas: "X-5" },
+            // Kelas XI-2
             { nama: "Anisa Nurwulansari", kelas: "XI-2" },
-            { nama: "Annisa Khumairah M.", kelas: "XI-6" },
-            { nama: "Aqila Zulfadhly", kelas: "XI-7" },
-            { nama: "Ayuni Deviana Nurwahid", kelas: "XI-11" },
-            { nama: "Daniel Barus", kelas: "XI-12" },
-            { nama: "Deas Iskandar Dinata", kelas: "XI-11" },
-            { nama: "Deprilia Nurohmah", kelas: "XI-2" },
-            { nama: "Desri", kelas: "XI-10" },
-            { nama: "Diandra Anindita", kelas: "XI-11" },
-            { nama: "Grisfa Hayna Bilhaqi", kelas: "X-2" },
-            { nama: "Imelda Septiani Sihotang", kelas: "XI-11" },
-            { nama: "Intan Khairunnisa", kelas: "X-9" },
-            { nama: "Izza Nur Ghatfan", kelas: "XI-7" },
-            { nama: "Julia Apriyanti", kelas: "X-12" },
-            { nama: "Keyla Juniavani", kelas: "X-8" },
-            { nama: "Labib Arhaburrizqi .H", kelas: "X-1" },
-            { nama: "Luvita Putri Nur Hakim", kelas: "X-5" },
-            { nama: "Maulana Rizal", kelas: "XI-3" },
-            { nama: "Meisya Indriyanti", kelas: "X-6" },
-            { nama: "Muhamad Iqbal Baihaqi", kelas: "X-8" },
-            { nama: "Muhammad Kathan Abdinaafi", kelas: "XI-2" },
-            { nama: "Naila Nazma Sulaeman", kelas: "XI-6" },
-            { nama: "Nasywa Yasmine As-Salwa", kelas: "XI-11" },
-            { nama: "Pitriyani", kelas: "XI-8" },
-            { nama: "Raditya Rasya Aliy Putra", kelas: "XI-11" },
-            { nama: "Raditya Zia Zahran", kelas: "XI-3" },
-            { nama: "Rio Nada Ferdinand", kelas: "X-4" },
-            { nama: "Risma Melati Kurnia", kelas: "XI-8" },
-            { nama: "Rizal Abdillah", kelas: "XI-7" },
-            { nama: "Rizki Alvian", kelas: "X-6" },
-            { nama: "Selfira Nurul Badila", kelas: "X-9" },
-            { nama: "Silvia Tita Afriliani", kelas: "XI-11" },
-            { nama: "Siti Nur Mariam", kelas: "X-4" },
-            { nama: "Syifa Nurhajijah", kelas: "XI-3" },
-            { nama: "Syifa Salsa Bilah", kelas: "XI-2" },
-            { nama: "Ufairah Ghaisani Hafidzah", kelas: "XI-11" },
-            { nama: "Wali Setiawan", kelas: "XI-10" },
-            { nama: "Wandaeni Nurhasanah", kelas: "XI-10" },
-            { nama: "Wenda Widiarti", kelas: "X-11" },
             { nama: "Widdya Cahya Carisa", kelas: "XI-2" },
-            { nama: "Wildan Firasat Chandra", kelas: "XI-12" }
+            { nama: "Deprilia Nurohmah", kelas: "XI-2" },
+            { nama: "Muhammad Kathan Abdinaafi", kelas: "XI-2" },
+            { nama: "Syifa Salsa Bilah", kelas: "XI-2" },
+
+            // Kelas XI-3
+            { nama: "Maulana Rizal", kelas: "XI-3" },
+            { nama: "Raditya Zia Zahran", kelas: "XI-3" },
+
+            // Kelas XI-6
+            { nama: "Naila Nazma Sulaeman", kelas: "XI-6" },
+            { nama: "Annisa Khumairah M.", kelas: "XI-6" },
+
+            // Kelas XI-8
+            { nama: "Pitriyani", kelas: "XI-8" },
+            { nama: "Risma Melati Kurnia", kelas: "XI-8" },
+
+            // Kelas XI-10
+            { nama: "Wandaeni Nurhasanah", kelas: "XI-10" },
+            { nama: "Desri", kelas: "XI-10" },
+            { nama: "Wali Setiawan", kelas: "XI-10" },
+            { nama: "Ahmad Fatir Syatori", kelas: "XI-10" },
+
+            // Kelas XI-11
+            { nama: "Deas Iskandar Dinata", kelas: "XI-11" },
+            { nama: "Imelda Septiani Sihotang", kelas: "XI-11" },
+            { nama: "Raditya Rasya Aliy Putra", kelas: "XI-11" },
+            { nama: "Silvia Tita Afriliani", kelas: "XI-11" },
+            { nama: "Nasywa Yasmine As-Salwa", kelas: "XI-11" },
+            { nama: "Ayuni Deviana Nurwahid", kelas: "XI-11" },
+            { nama: "Ufairah Ghaisani Hafidzah", kelas: "XI-11" },
+            { nama: "Diandra Anindita", kelas: "XI-11" },
+
+            // Kelas XI-12
+            { nama: "Wildan Firasat Chandra", kelas: "XI-12" },
+            { nama: "Daniel Barus", kelas: "XI-12" },
+
+            // Kelas X-1
+            { nama: "Abdul Aziz Nurrohman", kelas: "X-1" },
+            { nama: "Labib Arhaburrizqi .H", kelas: "X-1" },
+            { nama: "Imelda Rahayu Putri", kelas: "X-1" },
+
+            // Kelas X-2
+            { nama: "Indah Shafa Salsabila", kelas: "X-2" },
+            { nama: "Grisfa Hayna Bilhaqi", kelas: "X-2" },
+
+            // Kelas X-4
+            { nama: "Rio Nada Ferdinand", kelas: "X-4" },
+            { nama: "Siti Nur Mariam", kelas: "X-4" },
+
+            // Kelas X-5
+            { nama: "Aleya Ayu Meyditta Putri", kelas: "X-5" },
+            { nama: "Luvita Putri Nur Hakim", kelas: "X-5" },
+
+            // Kelas X-6
+            { nama: "Meisya Indriyanti", kelas: "X-6" },
+            { nama: "Rizki Alvian", kelas: "X-6" },
+
+            // Kelas X-8
+            { nama: "Keyla Juniavani", kelas: "X-8" },
+            { nama: "Muhamad Iqbal Baihaqi", kelas: "X-8" },
+
+            // Kelas X-9
+            { nama: "Intan Khairunnisa", kelas: "X-9" },
+            { nama: "Selfira Nurul Badila", kelas: "X-9" },
+
+            // Kelas X-11
+            { nama: "Wenda Widiarti", kelas: "X-11" },
+
+            // Kelas X-12
+            { nama: "Julia Apriyanti", kelas: "X-12" }
         ];
 
         // ================================================================
